@@ -75,8 +75,10 @@ export default async function Page() {
                         loading="lazy"
                         style={{
                           width: '100%',
+                          maxWidth: 600,
                           height: 'auto',
                           display: 'block',
+                          margin: '0 auto',
                           objectFit: 'contain',
                           borderRadius: 16,
                         }}
@@ -90,9 +92,10 @@ export default async function Page() {
                           title={title}
                           style={{
                             width: '100%',
-                            height: '75vh',
-                            minHeight: 560,
+                            maxWidth: 800,
+                            height: 550,
                             display: 'block',
+                            margin: '0 auto',
                             border: '1px solid rgba(0,0,0,.12)',
                             borderRadius: 16,
                             background: '#fff',
