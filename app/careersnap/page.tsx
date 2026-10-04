@@ -32,6 +32,38 @@ export default async function Page() {
 
       <section className="section">
         <div className="wrap">
+          <div
+            className="card"
+            style={{
+              maxWidth: 760,
+              margin: '0 auto 32px',
+              textAlign: 'center',
+              padding: '28px 24px',
+            }}
+          >
+            <span className="pill">CAREERSNAP ONLINE</span>
+            <h2 style={{ marginBottom: 10 }}>Main CareerSnap Secara Interaktif</h2>
+            <p style={{ margin: '0 auto 20px', maxWidth: 560 }}>
+              Klik butang di bawah untuk membuka permainan CareerSnap Online sebenar dan mula meneroka kerjaya secara interaktif.
+            </p>
+            <a
+              className="button yellow"
+              href="https://careersnapubksl.my.canva.site/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 10,
+                fontWeight: 800,
+                fontSize: 16,
+                padding: '14px 24px',
+              }}
+            >
+              🎮 MAIN CAREERSNAP ONLINE
+            </a>
+          </div>
           {mainMedia.length > 0 && (
             <>
               <div className="sectionTitle">
