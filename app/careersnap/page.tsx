@@ -133,31 +133,6 @@ export default async function Page() {
             </>
           )}
 
-          <div className="sectionTitle" style={{ marginTop: 50 }}>
-            <h2>Bahan & PDF</h2>
-          </div>
-
-          {d.resources.length ? (
-            d.resources.map((x: any, i: number) => (
-              <div className="resource" key={i}>
-                <div>
-                  <b>{x.title}</b>
-                  <p>{x.description}</p>
-                </div>
-                <a className="button yellow" href={x.url} target="_blank" rel="noreferrer">
-                  Buka
-                </a>
-              </div>
-            ))
-          ) : (
-            <div className="card">
-              <h3>Ruang PDF CareerSnap</h3>
-              <p>
-                Admin boleh tambah video, gambar atau PDF melalui menu Media dalam dashboard.
-                Gunakan Bahagian <b>careersnap</b> dan Jenis Media <b>video</b>, <b>image</b> atau <b>pdf</b>.
-              </p>
-            </div>
-          )}
         </div>
       </section>
 
