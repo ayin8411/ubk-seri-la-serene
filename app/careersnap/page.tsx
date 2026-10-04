@@ -44,7 +44,7 @@ export default async function Page() {
                   <div
                     className="card"
                     key={item.id ?? `${item.url}-${i}`}
-                    style={{ marginBottom: 28, overflow: 'hidden' }}
+                    style={{ margin: '0 auto 28px', overflow: 'hidden', maxWidth: 680 }}
                   >
                     {item.title && (
                       <h3 style={{ marginTop: 0, marginBottom: 16 }}>{item.title}</h3>
@@ -75,7 +75,7 @@ export default async function Page() {
                         loading="lazy"
                         style={{
                           width: '100%',
-                          maxWidth: 600,
+                          maxWidth: 380,
                           height: 'auto',
                           display: 'block',
                           margin: '0 auto',
@@ -92,8 +92,8 @@ export default async function Page() {
                           title={title}
                           style={{
                             width: '100%',
-                            maxWidth: 800,
-                            height: 550,
+                            maxWidth: 600,
+                            height: 400,
                             display: 'block',
                             margin: '0 auto',
                             border: '1px solid rgba(0,0,0,.12)',
