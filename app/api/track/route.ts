@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server'
+export async function POST(req:Request){const url=process.env.NEXT_PUBLIC_SUPABASE_URL,key=process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;if(!url||!key)return NextResponse.json({ok:true,demo:true});try{const {path}=await req.json();await fetch(`${url}/rest/v1/page_views`,{method:'POST',headers:{apikey:key,Authorization:`Bearer ${key}`,'content-type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({path:path||'/'})});return NextResponse.json({ok:true})}catch{return NextResponse.json({ok:false},{status:200})}}
