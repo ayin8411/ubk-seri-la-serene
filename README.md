@@ -53,3 +53,12 @@ Projek ini menggunakan Next.js 16.3.8 (Active LTS security release) dan React 19
 
 ## Dashboard Admin - versi edit penuh
 Versi ini menambah fungsi Edit untuk Navigasi, Carousel, Carta Organisasi, Minda Sihat, Media dan CareerSnap. Untuk Carta Organisasi, admin boleh menukar nama, jawatan, URL foto dan susunan paparan. Visi dan Misi diedit melalui tab `Identiti & Pautan`.
+
+## CareerSnap carousel
+Untuk galeri hiasan kecil di bawah halaman CareerSnap:
+- Bahagian: `careersnap`
+- Jenis Media: `carousel`
+- URL: pautan imej Supabase
+- Susunan Paparan: 1, 2, 3 dan seterusnya
+
+Carousel memaparkan kira-kira 3 gambar pada desktop, 1 gambar pada telefon, auto-scroll perlahan dan boleh swipe/tekan anak panah.

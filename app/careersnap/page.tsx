@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
+import CareerSnapCarousel from '@/components/CareerSnapCarousel'
 
 export default async function Page() {
   const d = await publicData()
@@ -11,6 +12,8 @@ export default async function Page() {
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
   const mediaType = (value: unknown) => String(value ?? '').trim().toLowerCase()
+  const carouselItems = media.filter((item: any) => mediaType(item.type) === 'carousel')
+  const mainMedia = media.filter((item: any) => mediaType(item.type) !== 'carousel')
   const isVideo = (type: string) => ['video', 'mp4', 'mov', 'webm'].includes(type)
   const isImage = (type: string) => ['image', 'gambar', 'photo', 'png', 'jpg', 'jpeg', 'webp'].includes(type)
   const isPdf = (type: string) => ['pdf', 'application/pdf'].includes(type)
@@ -29,14 +32,14 @@ export default async function Page() {
 
       <section className="section">
         <div className="wrap">
-          {media.length > 0 && (
+          {mainMedia.length > 0 && (
             <>
               <div className="sectionTitle">
                 <h2>Media CareerSnap</h2>
                 <p>Video, poster, gambar dan PDF dipaparkan terus daripada dashboard.</p>
               </div>
 
-              {media.map((item: any, i: number) => {
+              {mainMedia.map((item: any, i: number) => {
                 const type = mediaType(item.type)
                 const title = item.title || 'Bahan CareerSnap'
 
@@ -132,6 +135,8 @@ export default async function Page() {
               })}
             </>
           )}
+
+          <CareerSnapCarousel items={carouselItems} />
 
         </div>
       </section>
