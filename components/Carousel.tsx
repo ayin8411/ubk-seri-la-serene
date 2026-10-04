@@ -1,0 +1,3 @@
+'use client'
+import {useEffect,useState} from 'react'
+export default function Carousel({items}:{items:any[]}){const [i,setI]=useState(0);useEffect(()=>{const t=setInterval(()=>setI(v=>(v+1)%items.length),5000);return()=>clearInterval(t)},[items.length]);if(!items.length)return null;const x=items[i];return <section className="carousel" style={{backgroundImage:`linear-gradient(90deg,rgba(3,47,98,.82),rgba(3,47,98,.15)),url(${x.image_url})`}}><div className="wrap"><div className="heroCopy"><span className="pill">HIGHLIGHT UBK</span><h1>{x.title}</h1><p>{x.subtitle}</p><div className="dots">{items.map((_:any,k:number)=><button key={k} aria-label={`Slide ${k+1}`} className={i===k?'active':''} onClick={()=>setI(k)}/>)}</div></div></div></section>}
