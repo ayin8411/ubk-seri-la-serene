@@ -140,6 +140,20 @@ export default function Admin() {
     await load()
   }
 
+
+  async function addOrganizationSlot(orderNo: number) {
+    if (!s) return
+    const { data: created, error } = await s.from('organization_members').insert({
+      name: 'Nama',
+      role: 'Jawatan',
+      photo_url: null,
+      order_no: orderNo,
+    }).select().single()
+    setMsg(error?.message || `Ruang organisasi ${orderNo} berjaya ditambah. Tekan Edit untuk masukkan foto, nama dan jawatan.`)
+    await load()
+    if (!error && created) openEdit('organization_members', created, cfg.Organisasi[1])
+  }
+
   async function updateAppointment(id: any, status: string) {
     if (!s) return
     const { error } = await s.from('appointments').update({ status }).eq('id', id)
@@ -327,6 +341,18 @@ export default function Admin() {
               <button className="dangerBtn" onClick={() => del(c[0], r.id)}>Padam</button>
             </div>
           </div>)}
+          {Array.from({ length: Math.max(0, 6 - (data[c[0]] || []).length) }, (_, idx) => {
+            const slot = (data[c[0]] || []).length + idx + 1
+            return <div className="panel orgAdminCard orgAdminEmpty" key={`empty-org-${slot}`}>
+              <div className="orgAdminPhoto placeholder">FOTO</div>
+              <h3>Ruang {slot}</h3>
+              <p>Belum diisi</p>
+              <small>Foto • Nama • Jawatan</small>
+              <div className="actionRow">
+                <button onClick={() => addOrganizationSlot(slot)}>+ Tambah Ruang Ini</button>
+              </div>
+            </div>
+          })}
         </div> : <div className="panel tableWrap">
           <table><thead><tr><th>ID</th>{c[1].map((f: string) => <th key={f}>{fieldLabels[f] || f}</th>)}<th>Aksi</th></tr></thead>
             <tbody>{(data[c[0]] || []).map((r: any) => <tr key={r.id}><td>{r.id}</td>{c[1].map((f: string) => <td key={f}>{String(r[f] ?? '').slice(0, 70)}</td>)}<td><div className="actionRow compact"><button onClick={() => openEdit(c[0], r, c[1])}>Edit</button><button className="dangerBtn" onClick={() => del(c[0], r.id)}>Padam</button></div></td></tr>)}</tbody>

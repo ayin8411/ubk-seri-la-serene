@@ -6,6 +6,8 @@ import {publicData} from '@/lib/data';
 export default async function Page(){
   const d=await publicData();
   const site=d.site||{};
+  const orgMembers = [...(d.org || [])].sort((a:any,b:any)=>Number(a.order_no||0)-Number(b.order_no||0));
+  const orgSlots = Array.from({length:6},(_,i)=>orgMembers[i] || { id:`empty-${i+1}`, name:'Nama', role:'Jawatan', photo_url:null, empty:true });
   return <>
     <Header site={site} nav={d.nav}/>
     <div className="pageHero managementHero"><div className="wrap">
@@ -19,7 +21,7 @@ export default async function Page(){
         <div className="card missionCard"><div className="cardAccent">MISI</div><h3>Misi</h3><p>{site.mission||'Membimbing murid mengenali potensi diri, membuat keputusan bijak dan membina masa depan yang positif.'}</p></div>
       </div>
       <div className="sectionTitle orgTitle" style={{marginTop:60}}><span className="titleKicker">STRUKTUR UBK</span><h2>{site.management_org_title||'Carta Organisasi'}</h2></div>
-      <div className="org">{d.org.map((x:any,i:number)=><div className="person" key={x.id||i}>{x.photo_url?<img src={x.photo_url} alt={x.name}/>:<div className="avatar">FOTO</div>}<h3>{x.name||'Nama'}</h3><p>{x.role||'Jawatan'}</p></div>)}</div>
+      <div className="org managementOrg">{orgSlots.map((x:any,i:number)=><div className={`person ${x.empty?'emptyOrgSlot':''}`} key={x.id||i}>{x.photo_url?<img src={x.photo_url} alt={x.name}/>:<div className="avatar">FOTO</div>}<h3>{x.name||'Nama'}</h3><p>{x.role||'Jawatan'}</p></div>)}</div>
       <div className="card fileCard" style={{marginTop:34}}>
         <div className="fileIcon">📁</div><div><h3>{site.management_files_title||'PENGURUSAN FAIL'}</h3>
         <p>{site.management_files_text||'Akses folder pengurusan yang dipautkan dengan Google Drive.'}</p>
