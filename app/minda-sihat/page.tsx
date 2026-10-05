@@ -52,16 +52,15 @@ export default async function Page() {
           </div>
 
           {media.length > 0 && (
-            <div style={{ marginTop: 42 }}>
+            <div className="mindaMediaGrid">
               {media.map((item: any, i: number) => {
                 const type = mediaType(item.type)
                 const title = item.title || 'Bahan Minda Sihat'
 
                 return (
                   <div
-                    className="card"
+                    className={`card mindaMediaCard ${isImage(type) ? 'mindaImageCard' : 'mindaWideCard'}`}
                     key={item.id ?? `${item.url}-${i}`}
-                    style={{ margin: '0 auto 28px', overflow: 'hidden', maxWidth: 680 }}
                   >
                     {item.title && (
                       <h3 style={{ marginTop: 0, marginBottom: 16 }}>{item.title}</h3>
@@ -90,15 +89,7 @@ export default async function Page() {
                         src={item.url}
                         alt={title}
                         loading="lazy"
-                        style={{
-                          width: '100%',
-                          maxWidth: 380,
-                          height: 'auto',
-                          display: 'block',
-                          margin: '0 auto',
-                          objectFit: 'contain',
-                          borderRadius: 16,
-                        }}
+                        className="mindaMediaImage"
                       />
                     )}
 
