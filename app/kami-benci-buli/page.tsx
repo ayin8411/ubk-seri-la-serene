@@ -22,7 +22,10 @@ export default async function Page() {
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
   const imageMedia = media.filter((item: any) => isImage(mediaType(item.type)))
-  const otherMedia = media.filter((item: any) => !isImage(mediaType(item.type)))
+  const otherMedia = media.filter((item: any) => {
+    const type = mediaType(item.type)
+    return isVideo(type) || isPdf(type)
+  })
 
   return (
     <>
@@ -87,12 +90,6 @@ export default async function Page() {
                           </>
                         )}
 
-                        {!isVideo(type) && !isPdf(type) && (
-                          <div>
-                            <p>Format ini belum mempunyai paparan terus.</p>
-                            <a className="button yellow" href={item.url} target="_blank" rel="noreferrer">Buka Bahan</a>
-                          </div>
-                        )}
                       </article>
                     )
                   })}
