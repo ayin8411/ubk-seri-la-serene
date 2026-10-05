@@ -165,7 +165,8 @@ export default function Admin() {
     if (field === 'section') return <select {...common}>
       <option value="">Pilih bahagian</option>
       <option value="minda_sihat">Minda Sihat — Media biasa</option>
-      <option value="tips_minda_sihat">TIPS MINDA SIHAT — Poster portrait besar</option>
+      <option value="tips_kesejahteraan">Tips Kesejahteraan — Poster portrait besar</option>
+      <option value="tips_minda_sihat">TIPS MINDA SIHAT — Poster portrait besar (label lama)</option>
       <option value="infografik_minda_sihat">INFOGRAFIK MINDA SIHAT — Poster portrait besar</option>
       <option value="careersnap">CareerSnap</option>
     </select>

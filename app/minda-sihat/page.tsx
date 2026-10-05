@@ -23,14 +23,14 @@ export default async function Page() {
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
   // Ruang khas untuk poster / infografik portrait.
-  // Dalam Dashboard → Media, pilih Bahagian = tips_minda_sihat.
+  // Dalam Dashboard → Media, pilih Bahagian = tips_kesejahteraan.
+  // Alias lama tips_minda_sihat juga masih disokong.
   const portraitTips = (d.media ?? [])
-    .filter((item: any) => normalizeSection(item.section) === 'tips_minda_sihat')
+    .filter((item: any) => ['tips_kesejahteraan', 'tips_minda_sihat'].includes(normalizeSection(item.section)))
     .filter((item: any) => isImage(mediaType(item.type)))
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
   // Ruang berasingan untuk INFOGRAFIK MINDA SIHAT, juga image portrait.
-  // Dalam Dashboard → Media, pilih Bahagian = infografik_minda_sihat.
   const portraitInfographics = (d.media ?? [])
     .filter((item: any) => normalizeSection(item.section) === 'infografik_minda_sihat')
     .filter((item: any) => isImage(mediaType(item.type)))
@@ -52,6 +52,7 @@ export default async function Page() {
         <div className="wrap">
           <div className="sectionTitle">
             <h2>Tips Kesejahteraan</h2>
+            <p>Bahagian ini boleh diedit terus melalui Dashboard pada tab <b>Tips Kesejahteraan</b>.</p>
           </div>
 
           <div className="cards">
@@ -68,9 +69,9 @@ export default async function Page() {
           {portraitTips.length > 0 && (
             <div className="mindaPortraitSection">
               <div className="mindaPortraitHead">
-                <span className="pill">INFOGRAFIK</span>
-                <h2>TIPS MINDA SIHAT</h2>
-                <p>Poster dan tip ringkas dalam paparan portrait.</p>
+                <span className="pill">POSTER BESAR</span>
+                <h2>TIPS KESEJAHTERAAN</h2>
+                <p>Paparan poster portrait besar, 2 poster satu baris pada desktop supaya tulisan lebih jelas dibaca.</p>
               </div>
 
               <div className="mindaPortraitGrid">
