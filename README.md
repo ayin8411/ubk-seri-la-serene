@@ -62,3 +62,10 @@ Untuk galeri hiasan kecil di bawah halaman CareerSnap:
 - Susunan Paparan: 1, 2, 3 dan seterusnya
 
 Carousel memaparkan kira-kira 3 gambar pada desktop, 1 gambar pada telefon, auto-scroll perlahan dan boleh swipe/tekan anak panah.
+
+
+## Kemas kini Minda Sihat — 2 poster besar sebaris
+- TIPS MINDA SIHAT kini memaparkan 2 poster portrait besar dalam satu baris pada desktop.
+- INFOGRAFIK MINDA SIHAT ditambah di bawah TIPS MINDA SIHAT dengan saiz paparan yang sama.
+- Kedua-dua ruang diurus dari Dashboard → Media melalui pilihan Bahagian `tips_minda_sihat` atau `infografik_minda_sihat`.
+- Tablet/telefon bertukar kepada 1 poster sebaris supaya teks kekal mudah dibaca.

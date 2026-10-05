@@ -29,6 +29,13 @@ export default async function Page() {
     .filter((item: any) => isImage(mediaType(item.type)))
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
+  // Ruang berasingan untuk INFOGRAFIK MINDA SIHAT, juga image portrait.
+  // Dalam Dashboard → Media, pilih Bahagian = infografik_minda_sihat.
+  const portraitInfographics = (d.media ?? [])
+    .filter((item: any) => normalizeSection(item.section) === 'infografik_minda_sihat')
+    .filter((item: any) => isImage(mediaType(item.type)))
+    .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
+
   return (
     <>
       <Header site={d.site} nav={d.nav} />
@@ -72,6 +79,29 @@ export default async function Page() {
                     <img
                       src={item.url}
                       alt={item.title || 'Tips Minda Sihat'}
+                      loading="lazy"
+                    />
+                    {item.title && <figcaption>{item.title}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {portraitInfographics.length > 0 && (
+            <div className="mindaPortraitSection mindaInfographicSection">
+              <div className="mindaPortraitHead">
+                <span className="pill">INFOGRAFIK</span>
+                <h2>INFOGRAFIK MINDA SIHAT</h2>
+                <p>Infografik portrait bersaiz besar supaya maklumat lebih mudah dibaca.</p>
+              </div>
+
+              <div className="mindaPortraitGrid">
+                {portraitInfographics.map((item: any, i: number) => (
+                  <figure className="mindaPortraitCard" key={item.id ?? `${item.url}-${i}`}>
+                    <img
+                      src={item.url}
+                      alt={item.title || 'Infografik Minda Sihat'}
                       loading="lazy"
                     />
                     {item.title && <figcaption>{item.title}</figcaption>}
