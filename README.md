@@ -69,3 +69,10 @@ Carousel memaparkan kira-kira 3 gambar pada desktop, 1 gambar pada telefon, auto
 - INFOGRAFIK MINDA SIHAT ditambah di bawah TIPS MINDA SIHAT dengan saiz paparan yang sama.
 - Kedua-dua ruang diurus dari Dashboard → Media melalui pilihan Bahagian `tips_minda_sihat` atau `infografik_minda_sihat`.
 - Tablet/telefon bertukar kepada 1 poster sebaris supaya teks kekal mudah dibaca.
+
+
+## Kemas kini v6 — Minda Sihat
+- Poster TIPS MINDA SIHAT dan INFOGRAFIK MINDA SIHAT dibesarkan dengan 2 poster portrait satu baris pada desktop.
+- Setiap poster boleh menggunakan lebar sehingga 520px supaya teks lebih mudah dibaca.
+- Pada tablet dan telefon, poster menjadi 1 satu baris.
+- Dashboard kini mempunyai tab khusus `Tips Kesejahteraan` untuk tambah, edit, padam dan susun semula kandungan kad Tips Kesejahteraan.

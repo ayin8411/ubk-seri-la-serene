@@ -10,7 +10,7 @@ const tabs = [
   'Navigasi',
   'Carousel',
   'Organisasi',
-  'Minda Sihat',
+  'Tips Kesejahteraan',
   'Media',
   'CareerSnap',
   'Temujanji',
@@ -28,7 +28,7 @@ const fieldLabels: Record<string, string> = {
   role: 'Jawatan',
   name: 'Nama',
   photo_url: 'URL Foto',
-  body: 'Kandungan / Tip',
+  body: 'Penerangan Tip Kesejahteraan',
   section: 'Bahagian',
   type: 'Jenis Media',
   url: 'URL',
@@ -40,7 +40,7 @@ const cfg: Record<string, [string, string[]]> = {
   Navigasi: ['navigation', ['label', 'href', 'order_no']],
   Carousel: ['carousel_items', ['title', 'subtitle', 'image_url', 'order_no']],
   Organisasi: ['organization_members', ['role', 'name', 'photo_url', 'order_no']],
-  'Minda Sihat': ['mental_health_tips', ['title', 'body', 'order_no']],
+  'Tips Kesejahteraan': ['mental_health_tips', ['title', 'body', 'order_no']],
   Media: ['media_items', ['section', 'type', 'title', 'url', 'order_no']],
   CareerSnap: ['careersnap_resources', ['title', 'description', 'url', 'resource_type', 'order_no']],
 }
@@ -216,6 +216,7 @@ export default function Admin() {
           <h3>Cara cepat mengedit portal</h3>
           <p><b>Visi & Misi:</b> buka tab <b>Identiti & Pautan</b>.</p>
           <p><b>Nama, jawatan & foto carta organisasi:</b> buka tab <b>Organisasi</b> dan tekan <b>Edit</b>.</p>
+          <p><b>Tips Kesejahteraan:</b> buka tab <b>Tips Kesejahteraan</b> untuk tambah, edit atau padam tajuk dan penerangan tip.</p>
           <p><b>Gambar:</b> tampal Public URL daripada Supabase Storage pada ruangan URL Gambar / URL Foto.</p>
         </div>
       </>}
@@ -309,7 +310,7 @@ export default function Admin() {
         </form>}
 
         <form className="panel" onSubmit={e => add(e, c[0])}>
-          <h3>{tab === 'Organisasi' ? 'Tambah Ahli Carta Organisasi' : 'Tambah Item'}</h3>
+          <h3>{tab === 'Organisasi' ? 'Tambah Ahli Carta Organisasi' : tab === 'Tips Kesejahteraan' ? 'Tambah Tips Kesejahteraan' : 'Tambah Item'}</h3>
           {c[1].map((f: string) => <div key={f}><label>{fieldLabels[f] || f}</label>{renderField(f, '')}</div>)}
           <button>Tambah</button>
         </form>
