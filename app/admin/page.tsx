@@ -179,6 +179,7 @@ export default function Admin() {
     if (field === 'body' || field === 'description') return <textarea {...common} required={required} />
     if (field === 'section') return <select {...common}>
       <option value="">Pilih bahagian</option>
+      <option value="home">HOME — Video pilihan di halaman utama</option>
       <option value="minda_sihat">Minda Sihat — Media biasa</option>
       <option value="tips_kesejahteraan">Tips Kesejahteraan — Poster portrait besar</option>
       <option value="tips_minda_sihat">TIPS MINDA SIHAT — Poster portrait besar (label lama)</option>
@@ -234,7 +235,7 @@ export default function Admin() {
           <p><b>Visi & Misi:</b> buka tab <b>Identiti & Pautan</b>.</p>
           <p><b>Nama, jawatan & foto carta organisasi:</b> buka tab <b>Organisasi</b> dan tekan <b>Edit</b>.</p>
           <p><b>Tips Kesejahteraan:</b> buka tab <b>Tips Kesejahteraan</b> untuk tambah, edit atau padam tajuk dan penerangan tip.</p>
-          <p><b>Gambar:</b> tampal Public URL daripada Supabase Storage pada ruangan URL Gambar / URL Foto.</p>
+          <p><b>Gambar:</b> tampal Public URL daripada Supabase Storage pada ruangan URL Gambar / URL Foto.</p><p><b>Video HOME:</b> buka tab <b>Media</b>, pilih Bahagian <b>HOME</b>, Jenis Media <b>video</b>, kemudian tampal pautan YouTube atau Public URL fail MP4.</p>
         </div>
       </>}
 

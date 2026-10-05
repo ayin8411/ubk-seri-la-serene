@@ -80,3 +80,9 @@ Carousel memaparkan kira-kira 3 gambar pada desktop, 1 gambar pada telefon, auto
 
 ## Kemaskini Tips Kesejahteraan
 Tab **Tips Kesejahteraan** dalam Dashboard kini mempunyai medan **Tajuk Besar** sebelum **Tajuk**. Medan ini dipaparkan pada kad Tips Kesejahteraan di halaman Minda Sihat. Pangkalan data Supabase telah ditambah lajur `big_title`.
+
+
+## Pembaikan 5 Okt 2026 — Temujanji, Maklum Balas, Statistik & Video HOME
+Jika portal lama telah menggunakan jadual Supabase sebelum kolum `appointment_date`, `appointment_time` atau `rating` ditambah, jalankan `supabase/fix-existing-database.sql` sekali di SQL Editor. Fail ini juga memastikan `page_views` dan polisi RLS tersedia serta meminta PostgREST reload schema cache.
+
+Untuk video halaman utama: Dashboard → Media → Bahagian `HOME` → Jenis Media `video` → tampal pautan YouTube atau Public URL MP4. Video MP4 akan menggunakan pemain HTML5; YouTube akan dibuka sebagai embed.
