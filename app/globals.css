@@ -231,3 +231,27 @@ footer{background:linear-gradient(115deg,#052b61,#073e86);border-top:7px solid v
   .antiBuliPdf{height:520px}
 }
 @media(max-width:560px){.antiBuliPdf{height:430px}}
+
+
+/* Susunan kad Terokai UBK: 3 di atas, 2 di bawah dan center */
+.exploreCards{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:22px;
+  max-width:1180px;
+  margin:0 auto;
+}
+.exploreCards .card:nth-child(1){grid-column:1 / span 2;}
+.exploreCards .card:nth-child(2){grid-column:3 / span 2;}
+.exploreCards .card:nth-child(3){grid-column:5 / span 2;}
+.exploreCards .card:nth-child(4){grid-column:2 / span 2;}
+.exploreCards .card:nth-child(5){grid-column:4 / span 2;}
+@media(max-width:900px){
+  .exploreCards{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .exploreCards .card:nth-child(n){grid-column:auto;}
+  .exploreCards .card:last-child{grid-column:1 / -1;max-width:560px;width:100%;justify-self:center;}
+}
+@media(max-width:560px){
+  .exploreCards{grid-template-columns:1fr;}
+  .exploreCards .card:last-child{grid-column:auto;max-width:none;}
+}
