@@ -307,3 +307,41 @@ footer{background:#073b78;border-top:5px solid var(--yellow)}
 .adminMain{background:#f8fbff}
 .adminSide{background:#073b78}
 .adminTop h1{color:var(--blue)}
+
+/* ===== BACKGROUND PORTAL SMK SERI LALANG — OPACITY 40% ===== */
+html,body{min-height:100%}
+body{
+  position:relative;
+  isolation:isolate;
+  background:#f6c94b;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background-image:url('/smk-seri-lalang-background.png');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  opacity:.40;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:rgba(255,214,64,.18);
+}
+/* Jadikan lapisan kandungan sedikit lutsinar supaya foto latar masih kelihatan,
+   tetapi teks/kad kekal jelas dibaca. */
+.section{background:rgba(246,201,75,.82)}
+.section.white{background:rgba(255,217,102,.84)}
+.managementSection{background:linear-gradient(180deg,rgba(234,244,255,.88),rgba(245,250,255,.88) 50%,rgba(255,248,217,.88))}
+.mindaPortraitSection{background:linear-gradient(135deg,rgba(255,240,168,.90),rgba(234,244,255,.90))}
+.adminMain{background:rgba(248,251,255,.94)}
+@media(max-width:700px){
+  body::before{background-position:center top}
+}
