@@ -52,7 +52,6 @@ export default async function Page() {
         <div className="wrap">
           <div className="sectionTitle">
             <h2>Tips Kesejahteraan</h2>
-            <p>Bahagian ini boleh diedit terus melalui Dashboard pada tab <b>Tips Kesejahteraan</b>.</p>
           </div>
 
           <div className="cards">
@@ -94,7 +93,6 @@ export default async function Page() {
               <div className="mindaPortraitHead">
                 <span className="pill">INFOGRAFIK</span>
                 <h2>INFOGRAFIK MINDA SIHAT</h2>
-                <p>Infografik portrait bersaiz besar supaya maklumat lebih mudah dibaca.</p>
               </div>
 
               <div className="mindaPortraitGrid">
