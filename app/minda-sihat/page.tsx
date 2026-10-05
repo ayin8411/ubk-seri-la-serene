@@ -1,6 +1,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
+import MediaImageCarousel from '@/components/MediaImageCarousel'
 
 export default async function Page() {
   const d = await publicData()
@@ -96,18 +97,12 @@ export default async function Page() {
                 <h2>INFOGRAFIK MINDA SIHAT</h2>
               </div>
 
-              <div className="mindaPortraitGrid">
-                {portraitInfographics.map((item: any, i: number) => (
-                  <figure className="mindaPortraitCard" key={item.id ?? `${item.url}-${i}`}>
-                    <img
-                      src={item.url}
-                      alt={item.title || 'Infografik Minda Sihat'}
-                      loading="lazy"
-                    />
-                    {item.title && <figcaption>{item.title}</figcaption>}
-                  </figure>
-                ))}
-              </div>
+              <MediaImageCarousel
+                items={portraitInfographics}
+                className="mindaInfographicCarousel"
+                imageClassName="mindaCarouselImage"
+                ariaLabel="Infografik Minda Sihat"
+              />
             </div>
           )}
 

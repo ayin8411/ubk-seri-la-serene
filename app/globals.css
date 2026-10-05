@@ -390,3 +390,140 @@ body::after{
   background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(234,244,255,.96));
 }
 .adminMain{background:rgba(248,251,255,.96)}
+
+/* ===== KEMAS KINI: BACKGROUND 65% + CAROUSEL MEDIA ===== */
+body::before{
+  opacity:.65;
+}
+
+.mediaCarousel{
+  width:min(900px,100%);
+  margin:0 auto;
+}
+.mediaCarouselViewport{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  border-radius:24px;
+  background:rgba(255,255,255,.94);
+  border:2px solid #b9d4f0;
+  box-shadow:0 16px 38px #073b7820;
+}
+.mediaCarouselSlide{
+  position:absolute;
+  inset:0;
+  margin:0;
+  padding:18px 18px 54px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateX(18px) scale(.99);
+  transition:opacity .45s ease,transform .45s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.mediaCarouselSlide.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0) scale(1);
+}
+.mediaCarouselSlide img{
+  display:block;
+  width:100%;
+  height:430px;
+  object-fit:contain;
+  object-position:center;
+  border-radius:16px;
+  background:#f4f8fd;
+}
+.mediaCarouselSlide figcaption{
+  width:100%;
+  padding:14px 62px 0;
+  color:var(--blue);
+  font-size:17px;
+  font-weight:900;
+  text-align:center;
+  line-height:1.4;
+}
+.mediaCarouselArrow{
+  position:absolute;
+  top:50%;
+  z-index:3;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  padding:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(7,59,120,.92);
+  color:#fff;
+  font-size:36px;
+  line-height:1;
+  box-shadow:0 8px 20px #073b7830;
+}
+.mediaCarouselPrev{left:16px}
+.mediaCarouselNext{right:16px}
+.mediaCarouselDots{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  padding-top:16px;
+}
+.mediaCarouselDots button{
+  width:11px;
+  height:11px;
+  min-width:0;
+  padding:0;
+  border-radius:999px;
+  background:#a9bfd9;
+  transition:.25s ease;
+}
+.mediaCarouselDots button.active{
+  width:30px;
+  background:var(--yellow);
+}
+.mindaInfographicCarousel .mediaCarouselViewport{
+  min-height:650px;
+}
+.mindaInfographicCarousel .mediaCarouselSlide img{
+  height:560px;
+}
+.antiBuliCarouselSection{
+  margin-bottom:42px;
+  padding:30px 24px;
+  border-radius:24px;
+  background:linear-gradient(135deg,rgba(239,247,255,.93),rgba(255,255,255,.94));
+  border:2px solid #b9d4f0;
+}
+.antiBuliCarousel .mediaCarouselViewport{
+  min-height:600px;
+}
+.antiBuliCarousel .mediaCarouselSlide img{
+  height:510px;
+}
+.antiBuliOtherMedia{margin-top:30px}
+
+@media(max-width:760px){
+  .mediaCarouselViewport{min-height:430px;border-radius:18px}
+  .mediaCarouselSlide{padding:12px 12px 48px}
+  .mediaCarouselSlide img{height:350px;border-radius:12px}
+  .mediaCarouselSlide figcaption{padding:10px 52px 0;font-size:15px}
+  .mediaCarouselArrow{width:42px;height:42px;font-size:31px}
+  .mediaCarouselPrev{left:10px}.mediaCarouselNext{right:10px}
+  .mindaInfographicCarousel .mediaCarouselViewport{min-height:520px}
+  .mindaInfographicCarousel .mediaCarouselSlide img{height:440px}
+  .antiBuliCarousel .mediaCarouselViewport{min-height:470px}
+  .antiBuliCarousel .mediaCarouselSlide img{height:390px}
+  .antiBuliCarouselSection{padding:22px 12px}
+}
+@media(max-width:480px){
+  .mediaCarouselViewport{min-height:370px}
+  .mediaCarouselSlide img{height:290px}
+  .mindaInfographicCarousel .mediaCarouselViewport{min-height:450px}
+  .mindaInfographicCarousel .mediaCarouselSlide img{height:370px}
+  .antiBuliCarousel .mediaCarouselViewport{min-height:400px}
+  .antiBuliCarousel .mediaCarouselSlide img{height:320px}
+}
