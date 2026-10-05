@@ -255,3 +255,55 @@ footer{background:linear-gradient(115deg,#052b61,#073e86);border-top:7px solid v
   .exploreCards{grid-template-columns:1fr;}
   .exploreCards .card:last-child{grid-column:auto;max-width:none;}
 }
+
+/* ===== TEMA PORTAL: KUNING YOLK + BIRU ===== */
+:root{
+  --blue:#083f88;
+  --blue2:#1267b5;
+  --yellow:#f4c430;
+  --ink:#0b376f;
+  --muted:#486484;
+  --bg:#f6c94b;
+  --white:#ffffff;
+  --line:#a9c9ee;
+}
+body{
+  background:#f6c94b;
+  color:var(--ink);
+}
+.header{
+  background:linear-gradient(90deg,#073b78,#0e5ca8);
+  border-bottom:4px solid var(--yellow);
+  box-shadow:0 8px 24px #073b7826;
+}
+.brand b,.brand small,nav a{color:#fff}
+nav a:hover{color:var(--yellow)}
+.logos img,.logos span{border:2px solid #fff}
+.section{background:#f6c94b}
+.section.white{background:#ffd966}
+.pageHero{background:linear-gradient(120deg,#073b78,#0e5ca8 70%,#08478e);border-bottom:5px solid var(--yellow)}
+.sectionTitle h2,.card h3,.person h3,.resource h3{color:var(--blue)}
+.card,.person,.formCard,.panel,.resource{
+  background:linear-gradient(145deg,#f8fbff,#e8f2ff);
+  border:2px solid #9fc4ef;
+  box-shadow:0 12px 28px #073b7817;
+}
+.card .icon{background:#ffe786;color:var(--blue)}
+.button,.card a.btn,button{background:var(--blue);color:#fff}
+.button.yellow,.card a.yellow{background:var(--yellow);color:var(--blue)}
+.stats .stat{background:linear-gradient(135deg,#073b78,#0e5ca8)}
+.mindaPortraitSection{background:linear-gradient(135deg,#fff0a8,#eaf4ff);border-color:#91bdeb}
+.mindaPortraitCard{background:#f8fbff;border-color:#9fc4ef}
+.antiBuliHero{background:linear-gradient(120deg,#073b78,#0e5ca8 65%,#f4c430)}
+footer{background:#073b78;border-top:5px solid var(--yellow)}
+
+/* Homepage cards lebih jelas di atas latar yolk */
+.exploreCards .card{
+  background:linear-gradient(160deg,#ffffff,#eaf4ff);
+  border:2px solid #8db9e8;
+}
+
+/* Dashboard kekal selesa dibaca */
+.adminMain{background:#f8fbff}
+.adminSide{background:#073b78}
+.adminTop h1{color:var(--blue)}
