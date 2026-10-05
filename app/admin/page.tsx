@@ -22,6 +22,7 @@ const fieldLabels: Record<string, string> = {
   label: 'Nama Menu',
   href: 'Pautan / URL',
   order_no: 'Susunan Paparan',
+  big_title: 'Tajuk Besar',
   title: 'Tajuk',
   subtitle: 'Subtajuk',
   image_url: 'URL Gambar',
@@ -40,7 +41,7 @@ const cfg: Record<string, [string, string[]]> = {
   Navigasi: ['navigation', ['label', 'href', 'order_no']],
   Carousel: ['carousel_items', ['title', 'subtitle', 'image_url', 'order_no']],
   Organisasi: ['organization_members', ['role', 'name', 'photo_url', 'order_no']],
-  'Tips Kesejahteraan': ['mental_health_tips', ['title', 'body', 'order_no']],
+  'Tips Kesejahteraan': ['mental_health_tips', ['big_title', 'title', 'body', 'order_no']],
   Media: ['media_items', ['section', 'type', 'title', 'url', 'order_no']],
   CareerSnap: ['careersnap_resources', ['title', 'description', 'url', 'resource_type', 'order_no']],
 }

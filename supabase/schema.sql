@@ -3,7 +3,7 @@ create table if not exists public.site_settings (id int primary key default 1,ti
 create table if not exists public.navigation (id bigint generated always as identity primary key,label text not null,href text not null,order_no int default 0,is_active boolean default true);
 create table if not exists public.carousel_items (id bigint generated always as identity primary key,title text not null,subtitle text,image_url text not null,order_no int default 0,is_active boolean default true);
 create table if not exists public.organization_members (id bigint generated always as identity primary key,role text not null,name text not null,photo_url text,order_no int default 0);
-create table if not exists public.mental_health_tips (id bigint generated always as identity primary key,title text not null,body text not null,order_no int default 0,is_active boolean default true);
+create table if not exists public.mental_health_tips (id bigint generated always as identity primary key,big_title text,title text not null,body text not null,order_no int default 0,is_active boolean default true);
 create table if not exists public.media_items (id bigint generated always as identity primary key,section text not null,type text not null,title text,url text not null,order_no int default 0,is_active boolean default true);
 create table if not exists public.careersnap_resources (id bigint generated always as identity primary key,title text not null,description text,url text not null,resource_type text default 'pdf',order_no int default 0,is_active boolean default true);
 create table if not exists public.appointments (id bigint generated always as identity primary key,student_name text not null,student_class text not null,appointment_date date not null,appointment_time time not null,reason text not null,notes text,status text default 'BARU',created_at timestamptz default now());
@@ -59,3 +59,7 @@ alter table public.site_settings
   add column if not exists management_files_title text default 'PENGURUSAN FAIL',
   add column if not exists management_files_text text default 'Akses folder pengurusan yang dipautkan dengan Google Drive.',
   add column if not exists management_files_button text default 'Buka Google Drive';
+
+
+-- Editable Tajuk Besar for Tips Kesejahteraan
+alter table public.mental_health_tips add column if not exists big_title text;

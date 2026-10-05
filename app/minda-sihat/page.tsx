@@ -58,6 +58,7 @@ export default async function Page() {
             {d.tips.map((item: any, i: number) => (
               <div className="card" key={i}>
                 <div className="icon">💛</div>
+                {item.big_title && <div className="tipBigTitle">{item.big_title}</div>}
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </div>

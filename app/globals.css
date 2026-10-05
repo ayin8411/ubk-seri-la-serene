@@ -200,3 +200,15 @@ footer{background:linear-gradient(115deg,#052b61,#073e86);border-top:7px solid v
   .managementOrg > .person,
   .managementOrg > .person:nth-child(n){grid-column:auto;}
 }
+
+/* Tajuk Besar untuk kad Tips Kesejahteraan */
+.tipBigTitle{
+  margin-top:16px;
+  color:var(--blue);
+  font-size:28px;
+  line-height:1.15;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.tipBigTitle + h3{margin-top:8px;}
+@media(max-width:560px){.tipBigTitle{font-size:24px;}}

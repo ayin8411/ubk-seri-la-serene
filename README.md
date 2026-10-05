@@ -76,3 +76,7 @@ Carousel memaparkan kira-kira 3 gambar pada desktop, 1 gambar pada telefon, auto
 - Setiap poster boleh menggunakan lebar sehingga 520px supaya teks lebih mudah dibaca.
 - Pada tablet dan telefon, poster menjadi 1 satu baris.
 - Dashboard kini mempunyai tab khusus `Tips Kesejahteraan` untuk tambah, edit, padam dan susun semula kandungan kad Tips Kesejahteraan.
+
+
+## Kemaskini Tips Kesejahteraan
+Tab **Tips Kesejahteraan** dalam Dashboard kini mempunyai medan **Tajuk Besar** sebelum **Tajuk**. Medan ini dipaparkan pada kad Tips Kesejahteraan di halaman Minda Sihat. Pangkalan data Supabase telah ditambah lajur `big_title`.
