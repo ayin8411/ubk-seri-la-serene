@@ -212,3 +212,22 @@ footer{background:linear-gradient(115deg,#052b61,#073e86);border-top:7px solid v
 }
 .tipBigTitle + h3{margin-top:8px;}
 @media(max-width:560px){.tipBigTitle{font-size:24px;}}
+
+
+/* ===== KAMI BENCI BULI ===== */
+.antiBuliHero{background:linear-gradient(120deg,#6f1024,#a51832 52%,#073b78)}
+.antiBuliMediaGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;align-items:start}
+.antiBuliMediaCard{margin:0;overflow:hidden}
+.antiBuliMediaCard h3{font-size:24px;margin:0 0 16px}
+.antiBuliImage{display:block;width:100%;height:auto;max-height:760px;object-fit:contain;object-position:center;border-radius:16px;background:#eef3f8}
+.antiBuliVideo{display:block;width:100%;height:auto;border-radius:16px;background:#000}
+.antiBuliPdf{display:block;width:100%;height:620px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.antiBuliAction{margin-top:14px}
+.antiBuliWideCard{grid-column:1/-1;max-width:920px;width:100%;justify-self:center}
+.antiBuliEmpty{max-width:760px;margin:0 auto;text-align:center;padding:40px}
+@media(max-width:820px){
+  .antiBuliMediaGrid{grid-template-columns:1fr}
+  .antiBuliWideCard{grid-column:auto;max-width:none}
+  .antiBuliPdf{height:520px}
+}
+@media(max-width:560px){.antiBuliPdf{height:430px}}

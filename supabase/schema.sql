@@ -13,7 +13,7 @@ create table if not exists public.page_views (id bigint generated always as iden
 insert into public.site_settings(id,title,tagline,vision,mission,management_drive_url,psychometric_drive_url,appointment_intro)
 values(1,'UBK SERI LA SERENE','Aura Positif, Minda Progresif, Murid Proaktif','Perkhidmatan bimbingan dan kaunseling yang berkualiti ke arah kesejahteraan dan kecemerlangan murid.','Membimbing murid mengenali potensi diri, membuat keputusan bijak dan membina masa depan yang positif.','#','#','Pilih masa yang sesuai dan hantar permohonan temujanji.')
 on conflict(id) do nothing;
-insert into public.navigation(label,href,order_no) select * from (values ('UTAMA','/',1),('PENGURUSAN','/pengurusan',2),('PSIKOMETRIK','/psikometrik',3),('MINDA SIHAT','/minda-sihat',4),('CAREERSNAP','/careersnap',5)) v where not exists(select 1 from public.navigation);
+insert into public.navigation(label,href,order_no) select * from (values ('UTAMA','/',1),('PENGURUSAN','/pengurusan',2),('PSIKOMETRIK','/psikometrik',3),('MINDA SIHAT','/minda-sihat',4),('CAREERSNAP','/careersnap',5),('KAMI BENCI BULI','/kami-benci-buli',6)) v where not exists(select 1 from public.navigation);
 
 alter table public.site_settings enable row level security;alter table public.navigation enable row level security;alter table public.carousel_items enable row level security;alter table public.organization_members enable row level security;alter table public.mental_health_tips enable row level security;alter table public.media_items enable row level security;alter table public.careersnap_resources enable row level security;alter table public.appointments enable row level security;alter table public.feedback enable row level security;alter table public.page_views enable row level security;
 

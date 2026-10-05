@@ -183,6 +183,7 @@ export default function Admin() {
       <option value="tips_kesejahteraan">Tips Kesejahteraan — Poster portrait besar</option>
       <option value="tips_minda_sihat">TIPS MINDA SIHAT — Poster portrait besar (label lama)</option>
       <option value="infografik_minda_sihat">INFOGRAFIK MINDA SIHAT — Poster portrait besar</option>
+      <option value="kami_benci_buli">KAMI BENCI BULI — Gambar / PDF / Video</option>
       <option value="careersnap">CareerSnap</option>
     </select>
     return <input {...common} type={field === 'order_no' ? 'number' : 'text'} required={required} />
