@@ -345,3 +345,48 @@ body::after{
 @media(max-width:700px){
   body::before{background-position:center top}
 }
+
+/* ===== KEMAS KINI TEMA: BIRU/PUTIH SEBAGAI WARNA UTAMA, KUNING SEBAGAI AKSEN ===== */
+:root{
+  --blue:#083f88;
+  --blue2:#1267b5;
+  --yellow:#f4c430;
+  --ink:#0b376f;
+  --muted:#486484;
+  --bg:#edf5ff;
+  --white:#ffffff;
+  --line:#b9d4f0;
+}
+body{
+  background:#edf5ff;
+  color:var(--ink);
+}
+body::after{
+  background:linear-gradient(180deg,rgba(235,245,255,.32),rgba(255,255,255,.24));
+}
+.section{
+  background:rgba(239,247,255,.84);
+}
+.section.white{
+  background:rgba(255,255,255,.88);
+}
+.managementSection{
+  background:linear-gradient(180deg,rgba(235,245,255,.90),rgba(255,255,255,.90) 58%,rgba(255,249,221,.72));
+}
+.mindaPortraitSection{
+  background:linear-gradient(135deg,rgba(239,247,255,.92),rgba(255,255,255,.92) 72%,rgba(255,244,190,.72));
+}
+.mindaInfographicSection{
+  background:linear-gradient(135deg,rgba(247,251,255,.94),rgba(235,245,255,.94));
+}
+.card .icon{
+  background:#fff1a8;
+  color:var(--blue);
+}
+.antiBuliHero{
+  background:linear-gradient(120deg,#073b78,#0e5ca8 82%,#f4c430);
+}
+.exploreCards .card{
+  background:linear-gradient(160deg,rgba(255,255,255,.96),rgba(234,244,255,.96));
+}
+.adminMain{background:rgba(248,251,255,.96)}
