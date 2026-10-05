@@ -391,9 +391,9 @@ body::after{
 }
 .adminMain{background:rgba(248,251,255,.96)}
 
-/* ===== KEMAS KINI: BACKGROUND 65% + CAROUSEL MEDIA ===== */
+/* ===== KEMAS KINI: BACKGROUND 90% + CAROUSEL MEDIA ===== */
 body::before{
-  opacity:.65;
+  opacity:.90;
 }
 
 .mediaCarousel{
