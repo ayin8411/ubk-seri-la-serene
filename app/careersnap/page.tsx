@@ -66,11 +66,6 @@ export default async function Page() {
           </div>
           {mainMedia.length > 0 && (
             <>
-              <div className="sectionTitle">
-                <h2>Media CareerSnap</h2>
-                <p>Video, poster, gambar dan PDF dipaparkan terus daripada dashboard.</p>
-              </div>
-
               {mainMedia.map((item: any, i: number) => {
                 const type = mediaType(item.type)
                 const title = item.title || 'Bahan CareerSnap'
