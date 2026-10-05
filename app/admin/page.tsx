@@ -162,6 +162,12 @@ export default function Admin() {
     }
     const required = ['label', 'title', 'name', 'url', 'role'].includes(field)
     if (field === 'body' || field === 'description') return <textarea {...common} required={required} />
+    if (field === 'section') return <select {...common}>
+      <option value="">Pilih bahagian</option>
+      <option value="minda_sihat">Minda Sihat — Media biasa</option>
+      <option value="tips_minda_sihat">TIPS MINDA SIHAT — Image portrait</option>
+      <option value="careersnap">CareerSnap</option>
+    </select>
     return <input {...common} type={field === 'order_no' ? 'number' : 'text'} required={required} />
   }
 

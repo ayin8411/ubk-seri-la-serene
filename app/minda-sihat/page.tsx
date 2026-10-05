@@ -12,6 +12,9 @@ export default async function Page() {
       .replace(/[\s-]+/g, '_')
 
   const mediaType = (value: unknown) => String(value ?? '').trim().toLowerCase()
+  const isVideo = (type: string) => ['video', 'mp4', 'mov', 'webm'].includes(type)
+  const isImage = (type: string) => ['image', 'gambar', 'photo', 'png', 'jpg', 'jpeg', 'webp'].includes(type)
+  const isPdf = (type: string) => ['pdf', 'application/pdf'].includes(type)
 
   // Media Minda Sihat diurus terus melalui Dashboard → Media.
   // Bahagian boleh ditulis sebagai minda_sihat, minda-sihat atau Minda Sihat.
@@ -19,9 +22,12 @@ export default async function Page() {
     .filter((item: any) => normalizeSection(item.section) === 'minda_sihat')
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
-  const isVideo = (type: string) => ['video', 'mp4', 'mov', 'webm'].includes(type)
-  const isImage = (type: string) => ['image', 'gambar', 'photo', 'png', 'jpg', 'jpeg', 'webp'].includes(type)
-  const isPdf = (type: string) => ['pdf', 'application/pdf'].includes(type)
+  // Ruang khas untuk poster / infografik portrait.
+  // Dalam Dashboard → Media, pilih Bahagian = tips_minda_sihat.
+  const portraitTips = (d.media ?? [])
+    .filter((item: any) => normalizeSection(item.section) === 'tips_minda_sihat')
+    .filter((item: any) => isImage(mediaType(item.type)))
+    .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
 
   return (
     <>
@@ -50,6 +56,30 @@ export default async function Page() {
               </div>
             ))}
           </div>
+
+
+          {portraitTips.length > 0 && (
+            <div className="mindaPortraitSection">
+              <div className="mindaPortraitHead">
+                <span className="pill">INFOGRAFIK</span>
+                <h2>TIPS MINDA SIHAT</h2>
+                <p>Poster dan tip ringkas dalam paparan portrait.</p>
+              </div>
+
+              <div className="mindaPortraitGrid">
+                {portraitTips.map((item: any, i: number) => (
+                  <figure className="mindaPortraitCard" key={item.id ?? `${item.url}-${i}`}>
+                    <img
+                      src={item.url}
+                      alt={item.title || 'Tips Minda Sihat'}
+                      loading="lazy"
+                    />
+                    {item.title && <figcaption>{item.title}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          )}
 
           {media.length > 0 && (
             <div className="mindaMediaGrid">
@@ -90,6 +120,7 @@ export default async function Page() {
                         alt={title}
                         loading="lazy"
                         className="mindaMediaImage"
+                        style={{ maxHeight: 260 }}
                       />
                     )}
 
