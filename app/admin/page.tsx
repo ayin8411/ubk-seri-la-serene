@@ -203,6 +203,24 @@ export default function Admin() {
   }
 
 
+  // Alih menu satu kedudukan; simpan susunan terus ke Supabase.
+  async function moveNavigation(id: number, direction: -1 | 1) {
+    if (!s) return
+    const rows = [...(data.navigation || [])].sort((a:any,b:any) => (a.order_no ?? 0) - (b.order_no ?? 0) || Number(a.id) - Number(b.id))
+    const at = rows.findIndex((r:any) => r.id === id)
+    const target = at + direction
+    if (at < 0 || target < 0 || target >= rows.length) return
+    const [item] = rows.splice(at, 1)
+    rows.splice(target, 0, item)
+    // Gunakan jarak 10 agar susunan konsisten walaupun sebelum ini nombor sama.
+    for (let i=0;i<rows.length;i++) {
+      const {error} = await s.from('navigation').update({order_no:(i+1)*10}).eq('id', rows[i].id)
+      if (error) {setMsg(`Gagal menyimpan susunan: ${error.message}`);await load();return}
+    }
+    setMsg('Susunan navigasi telah disimpan. Refresh portal untuk melihat perubahan.')
+    await load()
+  }
+
   async function addOrganizationSlot(orderNo: number) {
     if (!s) return
     const { data: created, error } = await s.from('organization_members').insert({
@@ -435,6 +453,7 @@ export default function Admin() {
         {editing?.table==='external_links' && <form className="panel editPanel" onSubmit={saveEdit} key={editing.id}><h3>Edit Pautan</h3><label>Tajuk</label><input name="title" required defaultValue={editing.row.title}/><label>URL</label><input name="url" type="url" required defaultValue={editing.row.url}/><label>Penerangan</label><textarea name="description" defaultValue={editing.row.description||''}/><label>Lokasi paparan</label><select name="placement" defaultValue={editing.row.placement}><option value="nav">Navigasi Kiri</option><option value="home">Butang di Home</option></select><label>Susunan</label><input name="order_no" type="number" defaultValue={editing.row.order_no||0}/><button>Simpan Perubahan</button></form>}
       </div>}
 
+      {tab === 'Navigasi' && <div className="panel"><h3>Ubah Tajuk & Kedudukan Menu</h3><p>Tekan <b>Edit</b> untuk menukar tajuk navigasi tanpa mengubah alamat halaman (URL). Tekan <b>↑ Naik</b> atau <b>↓ Turun</b> untuk mengubah kedudukan dalam menu kiri. Susunan disimpan di Supabase dan terus digunakan selepas laman dimuat semula.</p><p>Menu GALERI PROGRAM dan SERENE TERAJU juga boleh diubah. Pastikan alamat halaman dalaman seperti <code>/galeri-program</code> tidak ditukar jika mahu halaman sedia ada terus berfungsi.</p></div>}
       {c && <>
         {editing && editing.table === c[0] && <form className="panel editPanel" onSubmit={saveEdit} key={`${editing.table}-${editing.id}`}>
           <div className="editHeader">
@@ -477,7 +496,7 @@ export default function Admin() {
           })}
         </div> : <div className="panel tableWrap">
           <table><thead><tr><th>ID</th>{c[1].map((f: string) => <th key={f}>{fieldLabels[f] || f}</th>)}<th>Aksi</th></tr></thead>
-            <tbody>{(data[c[0]] || []).map((r: any) => <tr key={r.id}><td>{r.id}</td>{c[1].map((f: string) => <td key={f}>{String(r[f] ?? '').slice(0, 70)}</td>)}<td><div className="actionRow compact"><button onClick={() => openEdit(c[0], r, c[1])}>Edit</button><button className="dangerBtn" onClick={() => del(c[0], r.id)}>Padam</button></div></td></tr>)}</tbody>
+            <tbody>{(data[c[0]] || []).map((r: any) => <tr key={r.id}><td>{r.id}</td>{c[1].map((f: string) => <td key={f}>{String(r[f] ?? '').slice(0, 70)}</td>)}<td><div className="actionRow compact"><button onClick={() => openEdit(c[0], r, c[1])}>Edit Tajuk</button>{tab === 'Navigasi' && <><button type="button" className="secondaryBtn" disabled={(data.navigation||[])[0]?.id===r.id} onClick={() => moveNavigation(r.id,-1)}>↑ Naik</button><button type="button" className="secondaryBtn" disabled={(data.navigation||[])[(data.navigation||[]).length-1]?.id===r.id} onClick={() => moveNavigation(r.id,1)}>↓ Turun</button></>}<button className="dangerBtn" onClick={() => del(c[0], r.id)}>Padam</button></div></td></tr>)}</tbody>
           </table>
         </div>}
       </>}

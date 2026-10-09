@@ -1,0 +1,10 @@
+PANDUAN EDIT TAJUK DAN SUSUNAN NAVIGASI
+
+1. Deploy ZIP ini di Vercel seperti biasa.
+2. Login Dashboard Admin > Navigasi.
+3. Tekan Edit Tajuk untuk menukar nama menu; tekan Simpan Perubahan.
+4. Tekan Naik atau Turun untuk susun semula menu. Perubahan terus disimpan dalam jadual navigation Supabase.
+5. Untuk mengubah tempat pautan luar, pergi ke Pengurusan Pautan Website dan ubah Susunan.
+6. Jangan ubah alamat halaman /serene-teraju atau /galeri-program melainkan mahu memautkan halaman lain.
+
+Tidak memerlukan SQL baharu apabila jadual navigation sedia ada dan polisi admin sudah berfungsi. Jika perubahan disekat oleh RLS, semak akses admin pada jadual navigation dalam Supabase.
