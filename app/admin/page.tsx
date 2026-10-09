@@ -8,6 +8,8 @@ const tabs = [
   'Identiti & Pautan',
   'Halaman Pengurusan',
   'Navigasi',
+  'Pengurusan Pautan Website',
+  'Galeri Program',
   'Carousel',
   'Pengumuman',
   'Jom Hubungi GBK Anda',
@@ -77,6 +79,7 @@ export default function Admin() {
       'organization_members',
       'mental_health_tips',
       'media_items',
+      'external_links',
       'careersnap_resources',
       'appointments',
       'feedback',
@@ -85,7 +88,7 @@ export default function Admin() {
     const out: any = {}
     for (const n of names) {
       let q = s.from(n).select('*')
-      if (['navigation','carousel_items','announcements','alumni','organization_members','mental_health_tips','media_items','careersnap_resources'].includes(n)) {
+      if (['navigation','carousel_items','announcements','alumni','organization_members','mental_health_tips','media_items','external_links','careersnap_resources'].includes(n)) {
         q = q.order('order_no', { ascending: true })
       } else {
         q = q.order('id', { ascending: false })
@@ -155,7 +158,7 @@ export default function Admin() {
       if (!['image/png','image/jpeg','image/webp'].includes(file.type)) {setMsg('Gunakan PNG, JPG atau WEBP sahaja.');return}
       if (file.size > 10 * 1024 * 1024) {setMsg('Gambar maksimum 10MB.');return}
       const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg'
-      const name = `serene-teraju/${section}-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const name = `portal-galleries/${section}-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
       const result = await s.storage.from('ubk-posters').upload(name,file,{contentType:file.type,upsert:false})
       if (result.error) {setMsg(`Upload gagal: ${result.error.message}`);return}
       url = s.storage.from('ubk-posters').getPublicUrl(name).data.publicUrl
@@ -244,6 +247,7 @@ export default function Admin() {
       <option value="infografik_minda_sihat">INFOGRAFIK MINDA SIHAT — Poster portrait besar</option>
       <option value="kami_benci_buli">KAMI BENCI BULI — Gambar / PDF / Video</option>
       <option value="careersnap">CareerSnap</option>
+      <option value="galeri_program">GALERI PROGRAM — Carousel Gambar</option>
       <option value="serene_teraju_pencapaian">SERENE TERAJU — Pencapaian PRS/SLB</option>
       <option value="serene_teraju_aktiviti">SERENE TERAJU — Aktiviti</option>
     </select>
@@ -393,12 +397,12 @@ export default function Admin() {
         </form>
       })()}
 
-      {(tab === 'Pencapaian PRS/SLB' || tab === 'Aktiviti SERENE TERAJU') && (() => {
+      {(tab === 'Pencapaian PRS/SLB' || tab === 'Aktiviti SERENE TERAJU' || tab === 'Galeri Program') && (() => {
         const achievement = tab === 'Pencapaian PRS/SLB'
-        const section = achievement ? 'serene_teraju_pencapaian' : 'serene_teraju_aktiviti'
+        const section = tab==='Galeri Program' ? 'galeri_program' : achievement ? 'serene_teraju_pencapaian' : 'serene_teraju_aktiviti'
         const items = (data.media_items || []).filter((item:any)=>item.section === section)
         return <div className="panel">
-          <div className="editHeader"><div><span className="pill">SERENE TERAJU • CAROUSEL</span><h3>{tab}</h3></div><a className="button yellow" href="/serene-teraju" target="_blank">Lihat Halaman</a></div>
+          <div className="editHeader"><div><span className="pill">GALERI • CAROUSEL</span><h3>{tab}</h3></div><a className="button yellow" href={tab === 'Galeri Program' ? '/galeri-program' : '/serene-teraju'} target="_blank">Lihat Halaman</a></div>
           <p className="adminHelp">Muat naik gambar dari komputer atau tampal URL. Gambar boleh ditambah sebanyak mana yang diperlukan, dipaparkan mengikut susunan nombor.</p>
           <form onSubmit={e=>addTerajuImage(e,section)}>
             <label>Tajuk / kapsyen gambar</label><input name="teraju_title" placeholder="Contoh: Anugerah PRS Peringkat Daerah" />
@@ -415,6 +419,21 @@ export default function Admin() {
           {items.length===0 && <p>Belum ada gambar. Tambah gambar pertama menggunakan borang di atas.</p>}
         </div>
       })()}
+
+      {tab === 'Pengurusan Pautan Website' && <div className="panel">
+        <div className="editHeader"><div><span className="pill">LAMAN LUAR</span><h3>Tambah pautan website</h3></div></div>
+        <p className="adminHelp">Pilih lokasi paparan. Navigasi Kiri akan muncul dalam menu tersembunyi; Butang Home akan muncul sebagai kad pautan pada Home. Pautan dibuka dalam tab baharu.</p>
+        <form onSubmit={e=>add(e,'external_links')}>
+          <label>Nama website / tajuk</label><input name="title" required placeholder="Contoh: CareerSnap Online" />
+          <label>Alamat laman web (https://...)</label><input name="url" type="url" required pattern="https?://.*" placeholder="https://contoh.com" />
+          <label>Penerangan ringkas (pilihan)</label><textarea name="description" placeholder="Maklumat ringkas website" />
+          <label>Lokasi paparan</label><select name="placement" defaultValue="nav"><option value="nav">Navigasi Kiri</option><option value="home">Butang di Home</option></select>
+          <label>Nombor susunan</label><input name="order_no" type="number" defaultValue={20}/>
+          <button type="submit">+ Tambah Pautan</button>
+        </form>
+        <div className="tableWrap" style={{marginTop:20}}><table><thead><tr><th>Tajuk</th><th>URL</th><th>Lokasi</th><th>Tindakan</th></tr></thead><tbody>{(data.external_links||[]).map((item:any)=><tr key={item.id}><td>{item.title}</td><td><a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a></td><td>{item.placement==='nav'?'Navigasi Kiri':'Home'}</td><td><div className="actionRow compact"><button onClick={()=>openEdit('external_links',item,['title','url','description','placement','order_no'])}>Edit</button><button className="dangerBtn" onClick={()=>del('external_links',item.id)}>Padam</button></div></td></tr>)}</tbody></table></div>
+        {editing?.table==='external_links' && <form className="panel editPanel" onSubmit={saveEdit} key={editing.id}><h3>Edit Pautan</h3><label>Tajuk</label><input name="title" required defaultValue={editing.row.title}/><label>URL</label><input name="url" type="url" required defaultValue={editing.row.url}/><label>Penerangan</label><textarea name="description" defaultValue={editing.row.description||''}/><label>Lokasi paparan</label><select name="placement" defaultValue={editing.row.placement}><option value="nav">Navigasi Kiri</option><option value="home">Butang di Home</option></select><label>Susunan</label><input name="order_no" type="number" defaultValue={editing.row.order_no||0}/><button>Simpan Perubahan</button></form>}
+      </div>}
 
       {c && <>
         {editing && editing.table === c[0] && <form className="panel editPanel" onSubmit={saveEdit} key={`${editing.table}-${editing.id}`}>

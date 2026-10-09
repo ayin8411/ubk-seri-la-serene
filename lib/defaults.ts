@@ -20,6 +20,7 @@ export const defaults = {
     {label:"CAREERSNAP",href:"/careersnap",order_no:5},
     {label:"KAMI BENCI BULI",href:"/kami-benci-buli",order_no:6},
     {label:"SERENE TERAJU",href:"/serene-teraju",order_no:7},
+    {label:"GALERI PROGRAM",href:"/galeri-program",order_no:8},
   ],
   carousel: [
     {title:"Aura Positif",subtitle:"Bina keyakinan, bina masa depan.",image_url:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80"},

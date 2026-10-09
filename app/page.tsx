@@ -37,6 +37,8 @@ export default async function Home(){
       </div>
     </section>
 
+    {(d.links||[]).some((x:any)=>x.placement==='home') && <section className="section alumniSection"><div className="wrap"><div className="sectionTitle"><h2>PAUTAN PILIHAN</h2><p>Terokai laman web dan bahan rujukan pilihan UBK.</p></div><div className="externalHomeLinks">{(d.links||[]).filter((x:any)=>x.placement==='home').map((x:any)=><a key={x.id} className="externalHomeCard" href={x.url} target="_blank" rel="noopener noreferrer"><strong>{x.title} ↗</strong>{x.description&&<span>{x.description}</span>}</a>)}</div></div></section>}
+
     <section className="section alumniSection">
       <div className="wrap">
         <div className="sectionTitle"><span className="pill">INSPIRASI LEPASAN SPM</span><h2>JEJAK ALUMNI</h2><p>Dari SERI LA ke dunia — lihat perjalanan bekas murid meneruskan pengajian mereka.</p></div>

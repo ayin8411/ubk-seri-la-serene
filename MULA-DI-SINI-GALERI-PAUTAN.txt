@@ -1,0 +1,9 @@
+UBK SERI LA SERENE — GALERI PROGRAM DAN PAUTAN WEBSITE
+
+1. Upload/redeploy fail projek melalui aliran Vercel sedia ada.
+2. Supabase > SQL Editor: jalankan supabase/GALERI-PROGRAM-DAN-PAUTAN.sql sekali.
+3. Pastikan akaun Dashboard diset dengan app_metadata.role=admin dan polisi media_items/Storage dipasang.
+4. Dashboard > Galeri Program: muat naik gambar, tambah kapsyen, susun, edit atau padam.
+5. Dashboard > Pengurusan Pautan Website: tambah URL dan pilih Navigasi Kiri / Butang Home.
+
+Nota: Deploy kod sahaja tidak membuat jadual Supabase secara automatik.

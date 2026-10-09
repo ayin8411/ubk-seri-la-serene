@@ -12,7 +12,7 @@ export async function publicData(){
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || FALLBACK_PUBLISHABLE_KEY
   const headers = { apikey: key }
   try {
-    const [s,n,c,o,t,m,r,a,al] = await Promise.all([
+    const [s,n,c,o,t,m,r,a,al,links] = await Promise.all([
       getJson(`${url}/rest/v1/site_settings?select=*&id=eq.1`,headers),
       getJson(`${url}/rest/v1/navigation?select=*&is_active=eq.true&order=order_no.asc`,headers),
       getJson(`${url}/rest/v1/carousel_items?select=*&is_active=eq.true&order=order_no.asc`,headers),
@@ -22,9 +22,14 @@ export async function publicData(){
       getJson(`${url}/rest/v1/careersnap_resources?select=*&is_active=eq.true&order=order_no.asc`,headers),
       getJson(`${url}/rest/v1/announcements?select=*&is_active=eq.true&order=order_no.asc`,headers),
       getJson(`${url}/rest/v1/alumni?select=*&is_active=eq.true&order=order_no.asc`,headers),
+      getJson(`${url}/rest/v1/external_links?select=*&is_active=eq.true&order=order_no.asc`,headers),
     ])
-    return {site:s?.[0]??defaults.site,nav:n?.length?(n.some((item:any)=>item.href==='/serene-teraju')?n:[...n,{label:"SERENE TERAJU",href:"/serene-teraju",order_no:99}]):defaults.nav,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
+    const baseNav=n?.length?n:defaults.nav
+    const navWithTeraju=baseNav.some((item:any)=>item.href==='/serene-teraju')?baseNav:[...baseNav,{label:"SERENE TERAJU",href:"/serene-teraju",order_no:99}]
+    const navWithGallery=navWithTeraju.some((item:any)=>item.href==='/galeri-program')?navWithTeraju:[...navWithTeraju,{label:"GALERI PROGRAM",href:"/galeri-program",order_no:100}]
+    const sideLinks=links.filter((item:any)=>item.placement==='nav').map((item:any)=>({label:item.title,href:item.url,order_no:item.order_no||100}))
+    return {site:s?.[0]??defaults.site,nav:[...navWithGallery,...sideLinks].sort((a:any,b:any)=>(a.order_no||0)-(b.order_no||0)),links,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
   } catch {
-    return {site:defaults.site,nav:defaults.nav,carousel:defaults.carousel,org:defaults.org,tips:defaults.tips,media:[],resources:[],announcements:[],alumni:[]}
+    return {site:defaults.site,nav:defaults.nav,links:[],carousel:defaults.carousel,org:defaults.org,tips:defaults.tips,media:[],resources:[],announcements:[],alumni:[]}
   }
 }

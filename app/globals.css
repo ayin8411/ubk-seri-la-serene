@@ -739,3 +739,8 @@ body::before{
 @media(max-width:900px){.headerInner{align-items:center;flex-direction:row}}
 @media(max-width:600px){.sideNavHandle{top:95px}.sideNavEdge{width:8px}}
 @media(prefers-reduced-motion:reduce){.sideNavDrawer{transition:none}}
+
+/* Portal links */
+.externalHomeLinks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;max-width:1050px;margin:auto}
+.externalHomeCard{display:flex;flex-direction:column;gap:10px;padding:24px;border-radius:18px;border:2px solid #b9d4f0;background:#fff;box-shadow:0 12px 25px #073b781a;color:var(--blue);min-height:105px}
+.externalHomeCard span{font-size:14px;color:var(--muted);line-height:1.5}.externalHomeCard:hover{border-color:var(--yellow);transform:translateY(-2px)}
