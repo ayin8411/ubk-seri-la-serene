@@ -1,0 +1,9 @@
+UBK SERI LA SERENE — PEMBETULAN BACKGROUND HOME
+
+Kemaskini:
+- Background Pengumuman, Jom Hubungi GBK Anda dan Seri La Serene Di Hati kini menggunakan gradient RGBA yang sama dengan seksyen Jejak Alumni.
+- Latar lebih putih/lembut dan gambar poster kekal pada opacity 100%, tanpa menjejaskan kandungan poster.
+- Navigasi SERENE TERAJU, Dashboard serta fungsi asal tidak diubah.
+
+Cara deploy: gunakan ZIP lengkap ini pada aliran deploy Vercel sedia ada.
+Tiada SQL baharu diperlukan kerana hanya CSS diubah.

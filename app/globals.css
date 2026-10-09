@@ -710,3 +710,15 @@ body::before{
 /* SERENE TERAJU */
 .terajuActivities{margin-top:52px;padding:24px;border-radius:24px;background:rgba(255,255,255,.80);border:1px solid rgba(30,75,116,.12)}
 .terajuActivities .mindaPortraitHead{margin-bottom:12px}
+
+/* HOME — latar poster dan pengumuman diseragamkan dengan JEJAK ALUMNI.
+   Lapisan putih lembut hanya di belakang kandungan, bukan pada gambar poster. */
+.announcementSection,
+.homePosterSection,
+.section.white.homePosterSection,
+.section.homePosterSection.serenePosterSection {
+  background: linear-gradient(180deg,rgba(238,247,255,.90),rgba(255,255,255,.94));
+}
+/* Pastikan infografik tidak menerima opacity daripada parent. */
+.homePosterBox,
+.homePosterBox img {opacity:1;}
