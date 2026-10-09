@@ -1,0 +1,5 @@
+NAVIGASI KIRI AUTO HIDE
+Komputer: halakan cursor ke hujung kiri skrin untuk membuka navigasi, alihkan keluar untuk menyembunyikan. Klik butang MENU juga boleh.
+Telefon/iPad: sentuh MENU dan gunakan X untuk menutup. Escape boleh menutup pada papan kekunci.
+Pautan navigasi mengikuti data asal Dashboard. Tiada SQL baharu diperlukan.
+Deploy ZIP ini melalui proses projek Vercel sedia ada.
