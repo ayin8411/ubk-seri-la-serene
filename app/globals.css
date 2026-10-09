@@ -694,3 +694,15 @@ body::before{
 
 /* Poster Home — gambar penuh tidak terpotong */
 .homePosterSection{padding:52px 0}.homePosterSection .sectionTitle{margin-bottom:25px}.homePosterBox{max-width:780px;margin:auto;overflow:hidden;border-radius:20px;border:1px solid #dce5dc;background:#fff;box-shadow:0 16px 42px rgba(18,40,31,.12)}.homePosterBox img{display:block;width:100%;height:auto;object-fit:contain}.serenePosterSection{background:linear-gradient(180deg,#f4f8ee,#fff9ee)}.serenePosterSection .sectionTitle h2{color:#36583c}@media(max-width:720px){.homePosterSection{padding:32px 0}.homePosterBox{border-radius:12px}}
+
+/* HOME: latar seragam untuk Pengumuman dan kedua-dua poster.
+   Mengekalkan gambar sekolah sebagai background, tanpa tema hijau sage di luar infografik. */
+.announcementSection,
+.homePosterSection,
+.section.white.homePosterSection,
+.section.homePosterSection.serenePosterSection {
+  background: rgba(239,247,255,.38);
+}
+/* Kad pengumuman kekal jelas dibaca di atas gambar sekolah. */
+.announcementSection { padding: 28px 0 24px; }
+.serenePosterSection .sectionTitle h2 { color: var(--blue); }

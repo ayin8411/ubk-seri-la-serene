@@ -1,0 +1,10 @@
+UBK SERI LA SERENE - PEMBETULAN BACKGROUND HOME
+
+1. Pengumuman kekal di atas JOM HUBUNGI GBK ANDA.
+2. Latar luar Pengumuman, JOM HUBUNGI GBK ANDA dan SERI LA SERENE DI HATI diseragamkan.
+3. Latar hijau sage pada seksyen luar SERI LA SERENE DI HATI dibuang.
+4. Warna di dalam gambar infografik asal tidak diubah.
+5. Fail portal, Dashboard dan sambungan Supabase dikekalkan seperti ZIP asal.
+
+Upload/deploy fail projek melalui kaedah Vercel yang biasa digunakan.
+Jika ada ralat RLS Supabase bagi Pengumuman, itu ialah tetapan database berasingan, bukan CSS.
