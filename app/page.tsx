@@ -7,6 +7,8 @@ export default async function Home(){
   return <>
     <Header site={d.site} nav={d.nav}/>
 
+    <Carousel items={d.carousel}/>
+
     <section className="announcementSection">
       <div className="wrap">
         <div className="announcementBar">
@@ -21,8 +23,6 @@ export default async function Home(){
         </div>
       </div>
     </section>
-
-    <Carousel items={d.carousel}/>
 
     <section className="section white homePosterSection">
       <div className="wrap">
