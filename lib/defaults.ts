@@ -9,6 +9,8 @@ export const defaults = {
     management_drive_url: "#",
     psychometric_drive_url: "#",
     appointment_intro: "Pilih masa yang sesuai dan hantar permohonan temujanji.",
+    contact_image_url: "/jom-hubungi-gbk-anda.png",
+    serene_image_url: "/seri-la-serene-di-hati.png",
   },
   nav: [
     {label:"UTAMA",href:"/",order_no:1},

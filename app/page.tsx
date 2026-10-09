@@ -1,3 +1,52 @@
-import Header from '@/components/Header';import Footer from '@/components/Footer';import Carousel from '@/components/Carousel';import SeriLaSereneCarousel from '@/components/SeriLaSereneCarousel';import {AppointmentForm,FeedbackForm} from '@/components/Forms';import {publicData} from '@/lib/data';import HomeVideo from '@/components/HomeVideo';
-const links=[['PENGURUSAN','Visi, misi, carta organisasi dan pengurusan fail.','/pengurusan','📁'],['PSIKOMETRIK','Akses bahan dan fail pentaksiran psikometrik.','/psikometrik','🧠'],['MINDA SIHAT','Video, tip dan bahan kesejahteraan emosi.','/minda-sihat','💙'],['CAREERSNAP','Video, PDF dan bahan CareerSnap.','/careersnap','🚀'],['KAMI BENCI BULI','Gambar, video, PDF dan bahan kesedaran anti buli.','/kami-benci-buli','🛡️']]
-export default async function Home(){const d=await publicData();const homeVideo=d.media.find((x:any)=>x.section==='home'&&x.type==='video');const sereneGallery=d.media.filter((x:any)=>x.section==='home'&&x.type==='carousel');return <><Header site={d.site} nav={d.nav}/><Carousel items={d.carousel}/><section className="section"><div className="wrap"><div className="sectionTitle"><h2>Terokai UBK SERI LA SERENE</h2><p>Semua akses utama disusun ringkas supaya murid, guru dan ibu bapa mudah mendapatkan maklumat.</p></div><div className="cards exploreCards">{links.map(x=><div className="card" key={x[0]}><div className="icon">{x[3]}</div><h3>{x[0]}</h3><p>{x[1]}</p><a className="btn" href={x[2]}>Buka Halaman</a></div>)}</div></div></section><section className="section white"><div className="wrap grid2"><div><span className="pill">VIDEO PILIHAN</span><h2 style={{fontSize:38,color:'var(--blue)'}}>Highlight & Informasi UBK</h2></div><div className="videoBox"><HomeVideo url={homeVideo?.url} title={homeVideo?.title || 'Video UBK'}/></div></div></section><SeriLaSereneCarousel items={sereneGallery}/><section className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section><Footer/></>}
+import Header from '@/components/Header';import Footer from '@/components/Footer';import Carousel from '@/components/Carousel';import SeriLaSereneCarousel from '@/components/SeriLaSereneCarousel';import AlumniCarousel from '@/components/AlumniCarousel';import {AppointmentForm,FeedbackForm} from '@/components/Forms';import {publicData} from '@/lib/data';import HomeVideo from '@/components/HomeVideo';
+
+export default async function Home(){
+  const d=await publicData();
+  const homeVideo=d.media.find((x:any)=>x.section==='home'&&x.type==='video');
+  const sereneGallery=d.media.filter((x:any)=>x.section==='home'&&x.type==='carousel');
+  return <>
+    <Header site={d.site} nav={d.nav}/>
+
+    <section className="announcementSection">
+      <div className="wrap">
+        <div className="announcementBar">
+          <div className="announcementIcon">📢</div>
+          <div>
+            <span className="announcementLabel">PENGUMUMAN</span>
+            {d.announcements.length ? <>
+              <h2>{d.announcements[0].title}</h2>
+              <p>{d.announcements[0].body}</p>
+            </> : <><h2>Pengumuman Terkini</h2><p>Tiada pengumuman buat masa ini.</p></>}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Carousel items={d.carousel}/>
+
+    <section className="section white homePosterSection">
+      <div className="wrap">
+        <div className="sectionTitle"><h2>JOM HUBUNGI GBK ANDA</h2></div>
+        <div className="homePosterBox"><img src={d.site.contact_image_url || '/jom-hubungi-gbk-anda.png'} alt="Talian sokongan psikososial — Jom Hubungi GBK Anda" /></div>
+      </div>
+    </section>
+    <section className="section homePosterSection serenePosterSection">
+      <div className="wrap">
+        <div className="sectionTitle"><h2>SERI LA SERENE DI HATI</h2></div>
+        <div className="homePosterBox"><img src={(d.site as any).serene_image_url || '/seri-la-serene-di-hati.png'} alt="Rasional penamaan UBK Seri La Serene" /></div>
+      </div>
+    </section>
+
+    <section className="section alumniSection">
+      <div className="wrap">
+        <div className="sectionTitle"><span className="pill">INSPIRASI LEPASAN SPM</span><h2>JEJAK ALUMNI</h2><p>Dari SERI LA ke dunia — lihat perjalanan bekas murid meneruskan pengajian mereka.</p></div>
+        <AlumniCarousel items={d.alumni}/>
+      </div>
+    </section>
+
+    <section className="section white"><div className="wrap grid2"><div><span className="pill">VIDEO PILIHAN</span><h2 style={{fontSize:38,color:'var(--blue)'}}>Highlight & Informasi UBK</h2></div><div className="videoBox"><HomeVideo url={homeVideo?.url} title={homeVideo?.title || 'Video UBK'}/></div></div></section>
+    <SeriLaSereneCarousel items={sereneGallery}/>
+    <section className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
+    <Footer/>
+  </>
+}

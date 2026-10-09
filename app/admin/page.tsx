@@ -9,6 +9,10 @@ const tabs = [
   'Halaman Pengurusan',
   'Navigasi',
   'Carousel',
+  'Pengumuman',
+  'Jom Hubungi GBK Anda',
+  'Seri La Serene Di Hati',
+  'Jejak Alumni',
   'Organisasi',
   'Tips Kesejahteraan',
   'Media',
@@ -35,6 +39,9 @@ const fieldLabels: Record<string, string> = {
   url: 'URL',
   description: 'Penerangan',
   resource_type: 'Jenis Bahan',
+  batch: 'Batch SPM',
+  course: 'Jurusan / Program',
+  institution: 'Tempat Belajar',
 }
 
 const cfg: Record<string, [string, string[]]> = {
@@ -44,6 +51,8 @@ const cfg: Record<string, [string, string[]]> = {
   'Tips Kesejahteraan': ['mental_health_tips', ['big_title', 'title', 'body', 'order_no']],
   Media: ['media_items', ['section', 'type', 'title', 'url', 'order_no']],
   CareerSnap: ['careersnap_resources', ['title', 'description', 'url', 'resource_type', 'order_no']],
+  Pengumuman: ['announcements', ['title', 'body', 'order_no']],
+  'Jejak Alumni': ['alumni', ['name', 'batch', 'course', 'institution', 'photo_url', 'order_no']],
 }
 
 export default function Admin() {
@@ -61,6 +70,8 @@ export default function Admin() {
       'site_settings',
       'navigation',
       'carousel_items',
+      'announcements',
+      'alumni',
       'organization_members',
       'mental_health_tips',
       'media_items',
@@ -72,7 +83,7 @@ export default function Admin() {
     const out: any = {}
     for (const n of names) {
       let q = s.from(n).select('*')
-      if (['navigation','carousel_items','organization_members','mental_health_tips','media_items','careersnap_resources'].includes(n)) {
+      if (['navigation','carousel_items','announcements','alumni','organization_members','mental_health_tips','media_items','careersnap_resources'].includes(n)) {
         q = q.order('order_no', { ascending: true })
       } else {
         q = q.order('id', { ascending: false })
@@ -107,6 +118,27 @@ export default function Admin() {
     const { error } = await s.from('site_settings').update(row).eq('id', 1)
     setMsg(error?.message || 'Visi, misi dan tetapan portal berjaya disimpan')
     await load()
+  }
+
+  async function savePoster(e: any, column: 'contact_image_url' | 'serene_image_url') {
+    e.preventDefault()
+    if (!s) return
+    setMsg('Menyimpan gambar...')
+    const form = e.currentTarget as HTMLFormElement
+    const file = (form.elements.namedItem('poster_file') as HTMLInputElement)?.files?.[0]
+    let imageUrl = String((form.elements.namedItem('poster_url') as HTMLInputElement)?.value || '').trim()
+    if (file) {
+      if (!file.type.startsWith('image/')) { setMsg('Sila pilih fail gambar PNG, JPG atau WEBP.'); return }
+      if (file.size > 10 * 1024 * 1024) { setMsg('Saiz gambar mestilah tidak melebihi 10MB.'); return }
+      const extension = (file.name.split('.').pop() || 'png').toLowerCase()
+      const filename = `${column}-${Date.now()}-${Math.random().toString(36).slice(2)}.${extension}`
+      const result = await s.storage.from('ubk-posters').upload(filename, file, { contentType:file.type, upsert:false })
+      if (result.error) { setMsg(`Gagal muat naik: ${result.error.message}. Pastikan SQL pemasangan telah dijalankan.`); return }
+      imageUrl = s.storage.from('ubk-posters').getPublicUrl(filename).data.publicUrl
+    }
+    const { error } = await s.from('site_settings').update({ [column]: imageUrl || (column === 'contact_image_url' ? '/jom-hubungi-gbk-anda.png' : '/seri-la-serene-di-hati.png') }).eq('id', 1)
+    setMsg(error ? `Gagal simpan: ${error.message}. Jalankan SQL pemasangan dahulu.` : 'Gambar berjaya dikemas kini. Muat semula halaman Home untuk melihat perubahan.')
+    if (!error) { form.reset(); await load() }
   }
 
   async function add(e: any, table: string) {
@@ -315,6 +347,23 @@ export default function Admin() {
         </div>
         <div className="panel"><button onClick={() => setTab('Organisasi')}>+ Tambah Ahli Organisasi</button></div>
       </>}
+
+      {(tab === 'Jom Hubungi GBK Anda' || tab === 'Seri La Serene Di Hati') && (() => {
+        const first = tab === 'Jom Hubungi GBK Anda'
+        const column = first ? 'contact_image_url' : 'serene_image_url'
+        const current = site[column] || (first ? '/jom-hubungi-gbk-anda.png' : '/seri-la-serene-di-hati.png')
+        return <form className="panel" onSubmit={e => savePoster(e, column)} key={`${column}-${current}`}>
+          <div className="editHeader"><div><span className="pill">HOME • EDIT GAMBAR</span><h3>{first ? 'JOM HUBUNGI GBK ANDA' : 'SERI LA SERENE DI HATI'}</h3></div><a className="button yellow" href="/" target="_blank">Lihat Home</a></div>
+          <p className="adminHelp">Pilih gambar dari komputer untuk menggantikan poster asal. Gambar akan disimpan di Supabase Storage dan dipaparkan di Home tanpa perlu deploy semula. Pilihan lain: tampal URL gambar.</p>
+          <img src={current} alt={`Pratonton ${tab}`} style={{display:'block',width:'100%',maxWidth:480,maxHeight:600,objectFit:'contain',borderRadius:18,margin:'16px auto',background:'#f4f8fd'}} />
+          <label>Muat Naik Gambar Baharu (PNG / JPG / WEBP, maksimum 10MB)</label>
+          <input name="poster_file" type="file" accept="image/png,image/jpeg,image/webp" />
+          <label>Atau URL Gambar</label>
+          <input name="poster_url" type="text" defaultValue={current} placeholder="https://..." />
+          <p className="adminHelp">Jika memilih fail gambar, fail tersebut akan digunakan walaupun URL diisi. Untuk kembali ke poster asal, kosongkan URL dan simpan tanpa memilih fail.</p>
+          <button type="submit">Simpan & Tukar Gambar</button>
+        </form>
+      })()}
 
       {c && <>
         {editing && editing.table === c[0] && <form className="panel editPanel" onSubmit={saveEdit} key={`${editing.table}-${editing.id}`}>
