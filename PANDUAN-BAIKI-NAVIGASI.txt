@@ -1,0 +1,15 @@
+PEMBAIKAN NAVIGASI PORTAL UBK SERI LA SERENE
+
+Menu navigasi kiri dan logo utama kini menggunakan pautan HTML biasa.
+Setiap klik pada menu dalaman membuka halaman dengan permintaan baharu kepada server,
+tanpa bergantung pada mekanisme pertukaran halaman client-side Next.js.
+Pautan luar kekal dibuka dalam tab baharu. Fungsi hover dan hide/show dikekalkan.
+
+CARA PUBLISH
+1. Upload ZIP ini ke projek Vercel portal yang sama.
+2. Pastikan Environment Variables Supabase kekal seperti deployment sebelum ini.
+3. Selepas deploy, buka portal dan uji menu UTAMA, PENGURUSAN,
+   PSIKOMETRIK, MINDA SIHAT, CAREERSNAP, SERENE TERAJU, GALERI PROGRAM.
+4. Jika pelayar masih memaparkan fail lama, refresh halaman sekali.
+
+Tiada SQL baharu diperlukan untuk pembaikan navigasi ini.
