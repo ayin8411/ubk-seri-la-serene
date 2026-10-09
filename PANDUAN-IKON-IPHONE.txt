@@ -1,0 +1,12 @@
+PEMBETULAN FAVICON & IKON IPHONE - UBK SERI LA SERENE
+
+- Gambar tepat pilihan UBK Caring Community Emblem(2).png digunakan pada semua ikon.
+- Tambahan: apple-touch-icon.png (180), icon-192.png, icon-512.png, favicon.ico, favicon.png, site.webmanifest.
+- app/layout.tsx kini mempunyai metadata icon, apple-touch-icon, dan manifest.
+
+LANGKAH:
+1. Deploy ZIP ini ke projek Vercel yang sedang digunakan oleh domain ubksmkserilalang.com.
+2. Selepas deploy, buka https://ubksmkserilalang.com/apple-touch-icon.png dan pastikan logo muncul.
+3. Pada iPhone, padam ikon Home Screen lama, buka laman dalam Safari dan pilih Share > Add to Home Screen.
+4. Jika favicon tab lama kekal, cuba private browsing atau kosongkan cache pelayar.
+5. Fungsi Favicon Portal dalam dashboard dikekalkan. Untuk mengubah ikon iPhone secara dinamik setiap kali upload, kod metadata / ikon iPhone perlu dikemaskini lagi (konfigurasi ini menggunakan ikon UBK lalai untuk ikon Home Screen).
