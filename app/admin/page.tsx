@@ -6,6 +6,7 @@ import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
 const tabs = [
   'Ringkasan',
   'Identiti & Pautan',
+  'Favicon Portal',
   'Halaman Pengurusan',
   'Navigasi',
   'Pengurusan Pautan Website',
@@ -122,6 +123,40 @@ export default function Admin() {
     const row = Object.fromEntries(new FormData(e.currentTarget).entries())
     const { error } = await s.from('site_settings').update(row).eq('id', 1)
     setMsg(error?.message || 'Visi, misi dan tetapan portal berjaya disimpan')
+    await load()
+  }
+
+  async function saveFavicon(e: any) {
+    e.preventDefault()
+    if (!s) return
+    const form = e.currentTarget as HTMLFormElement
+    const file = (form.elements.namedItem('favicon_file') as HTMLInputElement)?.files?.[0]
+    if (!file) { setMsg('Sila pilih fail gambar favicon dahulu.'); return }
+    const ext = (file.name.split('.').pop() || '').toLowerCase()
+    if (!['png','jpg','jpeg','webp','ico'].includes(ext)) { setMsg('Format yang diterima: PNG, JPG, WEBP atau ICO.'); return }
+    if (file.size > 2 * 1024 * 1024) { setMsg('Fail favicon mesti tidak melebihi 2MB.'); return }
+    setMsg('Sedang memuat naik favicon...')
+    const filename = `portal-favicons/favicon-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    const contentType = ext === 'ico' ? 'image/x-icon' : file.type || 'image/png'
+    const uploaded = await s.storage.from('ubk-posters').upload(filename, file, {contentType, upsert:false})
+    if (uploaded.error) { setMsg(`Upload gagal: ${uploaded.error.message}`); return }
+    const url = s.storage.from('ubk-posters').getPublicUrl(filename).data.publicUrl
+    const {error} = await s.from('site_settings').update({favicon_url:url}).eq('id',1)
+    if (error) { setMsg(`Favicon gagal disimpan: ${error.message}. Jalankan SQL FAVICON-PORTAL.sql dahulu.`); return }
+    document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(el=>el.remove())
+    const link = document.createElement('link')
+    link.rel = 'icon'; link.href = url; document.head.appendChild(link)
+    setMsg('Favicon berjaya disimpan! Buka semula portal atau muat semula halaman untuk melihat logo baharu.')
+    form.reset()
+    await load()
+  }
+
+  async function resetFavicon() {
+    const {error} = await s.from('site_settings').update({favicon_url:null}).eq('id',1)
+    if (error) {setMsg(`Gagal mengembalikan favicon: ${error.message}`);return}
+    document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(el=>el.remove())
+    const link = document.createElement('link');link.rel='icon';link.href='/favicon.png';document.head.appendChild(link)
+    setMsg('Favicon asal UBK berjaya dipulihkan.')
     await load()
   }
 
@@ -314,12 +349,28 @@ export default function Admin() {
         </div>
         <div className="panel adminGuide">
           <h3>Cara cepat mengedit portal</h3>
+          <p><b>Favicon:</b> buka tab <b>Favicon Portal</b> untuk muat naik logo pada tab browser.</p>
           <p><b>Visi & Misi:</b> buka tab <b>Identiti & Pautan</b>.</p>
           <p><b>Nama, jawatan & foto carta organisasi:</b> buka tab <b>Organisasi</b> dan tekan <b>Edit</b>.</p>
           <p><b>Tips Kesejahteraan:</b> buka tab <b>Tips Kesejahteraan</b> untuk tambah, edit atau padam tajuk dan penerangan tip.</p>
           <p><b>Gambar:</b> tampal Public URL daripada Supabase Storage pada ruangan URL Gambar / URL Foto.</p><p><b>Video HOME:</b> buka tab <b>Media</b>, pilih Bahagian <b>HOME</b>, Jenis Media <b>video</b>, kemudian tampal pautan YouTube atau Public URL fail MP4.</p>
         </div>
       </>}
+
+      {tab === 'Favicon Portal' && <div className="panel">
+        <h3>Tetapan Favicon Portal UBK</h3>
+        <p>Favicon ialah logo kecil pada tab pelayar. Admin boleh menukar logo tanpa mengubah kod atau deploy ZIP baharu.</p>
+        <div style={{display:'flex',alignItems:'center',gap:18,margin:'18px 0',flexWrap:'wrap'}}>
+          <img src={site.favicon_url || '/favicon.png'} alt="Pratonton favicon UBK" style={{width:96,height:96,objectFit:'contain',borderRadius:15,background:'#f3f7fc',padding:8}}/>
+          <div><b>Pratonton Favicon Semasa</b><p>Disyorkan imej segi empat sama (512 × 512 piksel), bersaiz tidak melebihi 2MB.</p></div>
+        </div>
+        <form onSubmit={saveFavicon}>
+          <label htmlFor="favicon_file">Pilih gambar favicon baharu (PNG, JPG, WEBP atau ICO)</label>
+          <input id="favicon_file" name="favicon_file" type="file" accept=".png,.jpg,.jpeg,.webp,.ico,image/png,image/jpeg,image/webp,image/x-icon" required/>
+          <div className="actionRow" style={{marginTop:16}}><button type="submit">Muat Naik &amp; Simpan Favicon</button><button type="button" className="secondaryBtn" onClick={resetFavicon}>Guna Semula Logo UBK Asal</button></div>
+        </form>
+        <p className="adminHelp">Penting: sebelum menggunakan fungsi ini buat kali pertama, jalankan fail <b>supabase/FAVICON-PORTAL.sql</b> dalam Supabase SQL Editor. Jika logo lama masih muncul, tutup dan buka semula tab atau kosongkan cache pelayar.</p>
+      </div>}
 
       {tab === 'Identiti & Pautan' && <form className="panel" onSubmit={saveSite} key={site.updated_at || 'site'}>
         <h3>Identiti Portal</h3>

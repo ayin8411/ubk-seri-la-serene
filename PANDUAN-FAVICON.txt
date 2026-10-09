@@ -1,0 +1,12 @@
+PANDUAN FAVICON PORTAL UBK SERI LA SERENE
+
+1. Dalam Supabase > SQL Editor, jalankan supabase/FAVICON-PORTAL.sql sekali sahaja.
+2. Deploy ZIP ini ke projek Vercel portal UBK yang sedia ada.
+3. Buka /admin dan log masuk sebagai admin.
+4. Klik menu Favicon Portal di kiri.
+5. Pilih gambar PNG/JPG/WEBP/ICO (maksimum 2MB); kemudian klik Muat Naik & Simpan Favicon.
+6. Klik Guna Semula Logo UBK Asal jika mahu mengembalikan logo lalai.
+
+Nota: Muat naik menggunakan bucket Supabase Storage ubk-posters sedia ada. Polisi storage mestilah membenarkan admin memuat naik ke bucket berkenaan. Perubahan favicon mungkin memerlukan refresh/cache clear dalam browser.
+
+Favicon asal telah ditetapkan menggunakan gambar UBK Caring Community Emblem(2).png pilihan pengguna.
