@@ -16,6 +16,8 @@ const tabs = [
   'Organisasi',
   'Tips Kesejahteraan',
   'Media',
+  'Pencapaian PRS/SLB',
+  'Aktiviti SERENE TERAJU',
   'CareerSnap',
   'Temujanji',
   'Apa Kata Anda',
@@ -141,6 +143,30 @@ export default function Admin() {
     if (!error) { form.reset(); await load() }
   }
 
+  async function addTerajuImage(e: any, section: string) {
+    e.preventDefault()
+    if (!s) return
+    const form = e.currentTarget as HTMLFormElement
+    const file = (form.elements.namedItem('teraju_file') as HTMLInputElement)?.files?.[0]
+    const title = String((form.elements.namedItem('teraju_title') as HTMLInputElement)?.value || '').trim()
+    const order_no = Number((form.elements.namedItem('teraju_order') as HTMLInputElement)?.value || 0)
+    let url = String((form.elements.namedItem('teraju_url') as HTMLInputElement)?.value || '').trim()
+    if (file) {
+      if (!['image/png','image/jpeg','image/webp'].includes(file.type)) {setMsg('Gunakan PNG, JPG atau WEBP sahaja.');return}
+      if (file.size > 10 * 1024 * 1024) {setMsg('Gambar maksimum 10MB.');return}
+      const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg'
+      const name = `serene-teraju/${section}-${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const result = await s.storage.from('ubk-posters').upload(name,file,{contentType:file.type,upsert:false})
+      if (result.error) {setMsg(`Upload gagal: ${result.error.message}`);return}
+      url = s.storage.from('ubk-posters').getPublicUrl(name).data.publicUrl
+    }
+    if (!url) {setMsg('Pilih gambar atau masukkan URL gambar.');return}
+    const {error} = await s.from('media_items').insert({section,type:'image',title,url,order_no,is_active:true})
+    setMsg(error ? `Tidak berjaya: ${error.message}` : 'Gambar berjaya ditambah. Sila refresh halaman SERENE TERAJU.')
+    if (!error) form.reset()
+    await load()
+  }
+
   async function add(e: any, table: string) {
     e.preventDefault()
     if (!s) return
@@ -218,6 +244,8 @@ export default function Admin() {
       <option value="infografik_minda_sihat">INFOGRAFIK MINDA SIHAT — Poster portrait besar</option>
       <option value="kami_benci_buli">KAMI BENCI BULI — Gambar / PDF / Video</option>
       <option value="careersnap">CareerSnap</option>
+      <option value="serene_teraju_pencapaian">SERENE TERAJU — Pencapaian PRS/SLB</option>
+      <option value="serene_teraju_aktiviti">SERENE TERAJU — Aktiviti</option>
     </select>
     return <input {...common} type={field === 'order_no' ? 'number' : 'text'} required={required} />
   }
@@ -363,6 +391,29 @@ export default function Admin() {
           <p className="adminHelp">Jika memilih fail gambar, fail tersebut akan digunakan walaupun URL diisi. Untuk kembali ke poster asal, kosongkan URL dan simpan tanpa memilih fail.</p>
           <button type="submit">Simpan & Tukar Gambar</button>
         </form>
+      })()}
+
+      {(tab === 'Pencapaian PRS/SLB' || tab === 'Aktiviti SERENE TERAJU') && (() => {
+        const achievement = tab === 'Pencapaian PRS/SLB'
+        const section = achievement ? 'serene_teraju_pencapaian' : 'serene_teraju_aktiviti'
+        const items = (data.media_items || []).filter((item:any)=>item.section === section)
+        return <div className="panel">
+          <div className="editHeader"><div><span className="pill">SERENE TERAJU • CAROUSEL</span><h3>{tab}</h3></div><a className="button yellow" href="/serene-teraju" target="_blank">Lihat Halaman</a></div>
+          <p className="adminHelp">Muat naik gambar dari komputer atau tampal URL. Gambar boleh ditambah sebanyak mana yang diperlukan, dipaparkan mengikut susunan nombor.</p>
+          <form onSubmit={e=>addTerajuImage(e,section)}>
+            <label>Tajuk / kapsyen gambar</label><input name="teraju_title" placeholder="Contoh: Anugerah PRS Peringkat Daerah" />
+            <label>Pilih gambar PNG / JPG / WEBP (maksimum 10MB)</label><input name="teraju_file" type="file" accept="image/png,image/jpeg,image/webp" />
+            <label>Atau URL gambar</label><input name="teraju_url" placeholder="https://..." />
+            <label>Susunan Paparan</label><input name="teraju_order" type="number" defaultValue={items.length+1} />
+            <button type="submit">+ Tambah Gambar Carousel</button>
+          </form>
+          <div className="orgAdminGrid" style={{marginTop:24}}>{items.map((item:any)=><article className="panel orgAdminCard" key={item.id}>
+            <img src={item.url} alt={item.title||'Gambar SERENE TERAJU'} style={{width:'100%',height:170,objectFit:'contain'}} />
+            <h3>{item.title || 'Tanpa kapsyen'}</h3><small>Susunan: {item.order_no}</small>
+            <div className="actionRow"><button onClick={()=>{setTab('Media');openEdit('media_items',item,cfg.Media[1])}}>Edit</button><button className="dangerBtn" onClick={()=>del('media_items',item.id)}>Padam</button></div>
+          </article>)}</div>
+          {items.length===0 && <p>Belum ada gambar. Tambah gambar pertama menggunakan borang di atas.</p>}
+        </div>
       })()}
 
       {c && <>

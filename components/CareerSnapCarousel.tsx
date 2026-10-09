@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
-export default function CareerSnapCarousel({ items }: { items: any[] }) {
+export default function CareerSnapCarousel({ items, heading = "Sorotan CareerSnap", description = "Sekilas aktiviti dan momen CareerSnap." }: { items: any[], heading?: string, description?: string }) {
   const trackRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export default function CareerSnapCarousel({ items }: { items: any[] }) {
     <section style={{ marginTop: 30, marginBottom: 8 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, marginBottom: 14 }}>
         <div>
-          <h2 style={{ margin: 0, fontSize: 'clamp(20px, 2.4vw, 28px)' }}>Sorotan CareerSnap</h2>
-          <p style={{ margin: '5px 0 0', opacity: .72, fontSize: 14 }}>Sekilas aktiviti dan momen CareerSnap.</p>
+          <h2 style={{ margin: 0, fontSize: 'clamp(20px, 2.4vw, 28px)' }}>{heading}</h2>
+          <p style={{ margin: '5px 0 0', opacity: .72, fontSize: 14 }}>{description}</p>
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>

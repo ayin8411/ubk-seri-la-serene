@@ -23,7 +23,7 @@ export async function publicData(){
       getJson(`${url}/rest/v1/announcements?select=*&is_active=eq.true&order=order_no.asc`,headers),
       getJson(`${url}/rest/v1/alumni?select=*&is_active=eq.true&order=order_no.asc`,headers),
     ])
-    return {site:s?.[0]??defaults.site,nav:n?.length?n:defaults.nav,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
+    return {site:s?.[0]??defaults.site,nav:n?.length?(n.some((item:any)=>item.href==='/serene-teraju')?n:[...n,{label:"SERENE TERAJU",href:"/serene-teraju",order_no:99}]):defaults.nav,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
   } catch {
     return {site:defaults.site,nav:defaults.nav,carousel:defaults.carousel,org:defaults.org,tips:defaults.tips,media:[],resources:[],announcements:[],alumni:[]}
   }

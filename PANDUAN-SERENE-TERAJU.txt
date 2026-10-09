@@ -1,0 +1,8 @@
+SERENE TERAJU
+
+1. Deploy ZIP portal melalui aliran Vercel sedia ada.
+2. Navigasi SERENE TERAJU muncul terus melalui fallback kod.
+3. Buka Dashboard > Pencapaian PRS/SLB untuk muat naik gambar carousel besar.
+4. Buka Dashboard > Aktiviti SERENE TERAJU untuk muat naik gambar carousel kad seperti CareerSnap.
+5. Jika mahu menu turut disimpan dalam pangkalan data, jalankan supabase/serene-teraju.sql (sekali sahaja).
+6. Upload fail memerlukan bucket ubk-posters dan polisi Supabase Storage admin sedia ada.

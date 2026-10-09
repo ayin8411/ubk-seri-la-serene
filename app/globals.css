@@ -706,3 +706,7 @@ body::before{
 /* Kad pengumuman kekal jelas dibaca di atas gambar sekolah. */
 .announcementSection { padding: 28px 0 24px; }
 .serenePosterSection .sectionTitle h2 { color: var(--blue); }
+
+/* SERENE TERAJU */
+.terajuActivities{margin-top:52px;padding:24px;border-radius:24px;background:rgba(255,255,255,.80);border:1px solid rgba(30,75,116,.12)}
+.terajuActivities .mindaPortraitHead{margin-bottom:12px}
