@@ -1,0 +1,13 @@
+UBK SERI LA SERENE — SIGNATURE INTERFACE
+========================================
+Versi ini menggunakan ZIP NAVIGASI DIBAIKI sebagai asas.
+Semua halaman, fail gambar, borang, navigasi boleh edit, Supabase dan SQL asal dikekalkan.
+Perubahan: CSS visual ditambah pada akhir app/globals.css; komponen pembantu AMIN (panduan menu automatik) ditambah tanpa pangkalan data; pautan temujanji ke seksyen Home.
+AMIN bukan AI generatif. Penyambungan AI sebenar memerlukan API selamat, had penggunaan, kawalan privasi dan perlindungan pengguna murid.
+
+CARA DEPLOY:
+1. Deploy keseluruhan ZIP ini sebagai projek Next.js di Vercel seperti portal sebelumnya.
+2. Pastikan Environment Variables Supabase asal kekal ditetapkan pada projek Vercel.
+3. Gunakan domain sedia ada selepas mengesahkan versi ini berfungsi dengan baik.
+4. Jika bina deployment baharu, semak penghalaan domain sebelum menggantikannya.
+Tiada SQL baharu diperlukan untuk perubahan reka bentuk ini.

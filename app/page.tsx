@@ -48,7 +48,7 @@ export default async function Home(){
 
     <section className="section white"><div className="wrap grid2"><div><span className="pill">VIDEO PILIHAN</span><h2 style={{fontSize:38,color:'var(--blue)'}}>Highlight & Informasi UBK</h2></div><div className="videoBox"><HomeVideo url={homeVideo?.url} title={homeVideo?.title || 'Video UBK'}/></div></div></section>
     <SeriLaSereneCarousel items={sereneGallery}/>
-    <section className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
+    <section id="temujanji" className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
     <Footer/>
   </>
 }

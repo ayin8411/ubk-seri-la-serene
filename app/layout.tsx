@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata, Viewport } from 'next'
 import Tracker from '@/components/Tracker'
 import DynamicFavicon from '@/components/DynamicFavicon'
+import AminAssistant from '@/components/AminAssistant'
 
 export const metadata: Metadata = {
   title: 'UBK SERI LA SERENE',
@@ -17,5 +18,5 @@ export const metadata: Metadata = {
 }
 export const viewport: Viewport = { themeColor: '#003a96' }
 export default function RootLayout({children}:{children:React.ReactNode}) {
-  return <html lang="ms"><body><Tracker/><DynamicFavicon/>{children}</body></html>
+  return <html lang="ms"><body><Tracker/><DynamicFavicon/>{children}<AminAssistant/></body></html>
 }
