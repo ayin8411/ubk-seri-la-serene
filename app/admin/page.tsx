@@ -10,6 +10,7 @@ const tabs = [
   'Halaman Pengurusan',
   'Navigasi',
   'Pengurusan Pautan Website',
+  'ZON PERMAINAN MINDA SIHAT',
   'Galeri Program',
   'Carousel',
   'Pengumuman',
@@ -489,6 +490,26 @@ export default function Admin() {
         </div>
       })()}
 
+      {tab === 'ZON PERMAINAN MINDA SIHAT' && <div className="panel">
+        <div className="editHeader"><div><span className="pill">GAME INTERAKTIF</span><h3>Tetapan ZEP QUIZ</h3></div></div>
+        <p className="adminHelp">Tukar URL permainan di sini. Permainan akan dipaparkan di halaman MINDA SIHAT. Fungsi iframe bergantung pada kebenaran embedding oleh ZEP QUIZ.</p>
+        <form onSubmit={async (e)=>{
+          e.preventDefault(); if(!s)return;
+          const form=e.currentTarget;
+          const url=String((form.elements.namedItem('game_url') as HTMLInputElement)?.value||'').trim();
+          if(!/^https:\/\/quiz\.zep\.us\/en\/play\/[a-zA-Z0-9_-]+\/?$/.test(url)){setMsg('Gunakan pautan https://quiz.zep.us/en/play/... yang sah.');return}
+          const existing=(data.external_links||[]).find((x:any)=>x.title==='__SERENE_ZEP_QUIZ__');
+          const row={title:'__SERENE_ZEP_QUIZ__',url,description:'Tetapan permainan iframe ZON PERMAINAN MINDA SIHAT',placement:'home',order_no:999,is_active:true};
+          const result=existing?await s.from('external_links').update(row).eq('id',existing.id):await s.from('external_links').insert(row);
+          setMsg(result.error?`Tidak berjaya: ${result.error.message}`:'Pautan game berjaya disimpan. Refresh halaman MINDA SIHAT.');await load();
+        }}>
+          <label>Link permainan ZEP QUIZ</label>
+          <input key={(data.external_links||[]).find((x:any)=>x.title==='__SERENE_ZEP_QUIZ__')?.url||'default'} name="game_url" type="url" required defaultValue={(data.external_links||[]).find((x:any)=>x.title==='__SERENE_ZEP_QUIZ__')?.url||'https://quiz.zep.us/en/play/5gnavv'} />
+          <button type="submit">Simpan Link Permainan</button>
+        </form>
+        <p><a href="/minda-sihat#zon-permainan-minda-sihat" target="_blank" rel="noopener noreferrer">Lihat halaman MINDA SIHAT ↗</a></p>
+      </div>}
+
       {tab === 'Pengurusan Pautan Website' && <div className="panel">
         <div className="editHeader"><div><span className="pill">LAMAN LUAR</span><h3>Tambah pautan website</h3></div></div>
         <p className="adminHelp">Pilih lokasi paparan. Navigasi Kiri akan muncul dalam menu tersembunyi; Butang Home akan muncul sebagai kad pautan pada Home. Pautan dibuka dalam tab baharu.</p>
@@ -500,7 +521,7 @@ export default function Admin() {
           <label>Nombor susunan</label><input name="order_no" type="number" defaultValue={20}/>
           <button type="submit">+ Tambah Pautan</button>
         </form>
-        <div className="tableWrap" style={{marginTop:20}}><table><thead><tr><th>Tajuk</th><th>URL</th><th>Lokasi</th><th>Tindakan</th></tr></thead><tbody>{(data.external_links||[]).map((item:any)=><tr key={item.id}><td>{item.title}</td><td><a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a></td><td>{item.placement==='nav'?'Navigasi Kiri':'Home'}</td><td><div className="actionRow compact"><button onClick={()=>openEdit('external_links',item,['title','url','description','placement','order_no'])}>Edit</button><button className="dangerBtn" onClick={()=>del('external_links',item.id)}>Padam</button></div></td></tr>)}</tbody></table></div>
+        <div className="tableWrap" style={{marginTop:20}}><table><thead><tr><th>Tajuk</th><th>URL</th><th>Lokasi</th><th>Tindakan</th></tr></thead><tbody>{(data.external_links||[]).filter((item:any)=>item.title!=='__SERENE_ZEP_QUIZ__').map((item:any)=><tr key={item.id}><td>{item.title}</td><td><a href={item.url} target="_blank" rel="noopener noreferrer">{item.url}</a></td><td>{item.title==='__SERENE_ZEP_QUIZ__'?'Tetapan Game':item.placement==='nav'?'Navigasi Kiri':'Home'}</td><td><div className="actionRow compact"><button onClick={()=>openEdit('external_links',item,['title','url','description','placement','order_no'])}>Edit</button><button className="dangerBtn" onClick={()=>del('external_links',item.id)}>Padam</button></div></td></tr>)}</tbody></table></div>
         {editing?.table==='external_links' && <form className="panel editPanel" onSubmit={saveEdit} key={editing.id}><h3>Edit Pautan</h3><label>Tajuk</label><input name="title" required defaultValue={editing.row.title}/><label>URL</label><input name="url" type="url" required defaultValue={editing.row.url}/><label>Penerangan</label><textarea name="description" defaultValue={editing.row.description||''}/><label>Lokasi paparan</label><select name="placement" defaultValue={editing.row.placement}><option value="nav">Navigasi Kiri</option><option value="home">Butang di Home</option></select><label>Susunan</label><input name="order_no" type="number" defaultValue={editing.row.order_no||0}/><button>Simpan Perubahan</button></form>}
       </div>}
 

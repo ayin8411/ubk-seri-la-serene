@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
+import ZepGame from '@/components/ZepGame'
 
 export default async function Page() {
   const d = await publicData()
@@ -36,6 +37,9 @@ export default async function Page() {
     .filter((item: any) => normalizeSection(item.section) === 'infografik_minda_sihat')
     .filter((item: any) => isImage(mediaType(item.type)))
     .sort((a: any, b: any) => Number(a.order_no ?? 0) - Number(b.order_no ?? 0))
+
+  const game = (d.links ?? []).find((x: any) => x.title === '__SERENE_ZEP_QUIZ__')
+  const gameUrl = game?.url || 'https://quiz.zep.us/en/play/5gnavv'
 
   return (
     <>
@@ -196,6 +200,17 @@ export default async function Page() {
               })}
             </div>
           )}
+        </div>
+      </section>
+
+      <section className="section" id="zon-permainan-minda-sihat">
+        <div className="wrap">
+          <div className="sectionTitle">
+            <span className="pill">🎮 ZEP QUIZ</span>
+            <h2>ZON PERMAINAN MINDA SIHAT</h2>
+            <p>Jom teroka ilmu kesejahteraan emosi melalui permainan interaktif!</p>
+          </div>
+          <ZepGame url={gameUrl} />
         </div>
       </section>
 

@@ -37,7 +37,7 @@ export default async function Home(){
       </div>
     </section>
 
-    {(d.links||[]).some((x:any)=>x.placement==='home') && <section className="section alumniSection"><div className="wrap"><div className="sectionTitle"><h2>PAUTAN PILIHAN</h2><p>Terokai laman web dan bahan rujukan pilihan UBK.</p></div><div className="externalHomeLinks">{(d.links||[]).filter((x:any)=>x.placement==='home').map((x:any)=><a key={x.id} className="externalHomeCard" href={x.url} target="_blank" rel="noopener noreferrer"><strong>{x.title} ↗</strong>{x.description&&<span>{x.description}</span>}</a>)}</div></div></section>}
+    {(d.links||[]).some((x:any)=>x.placement==='home' && x.title!=='__SERENE_ZEP_QUIZ__') && <section className="section alumniSection"><div className="wrap"><div className="sectionTitle"><h2>PAUTAN PILIHAN</h2><p>Terokai laman web dan bahan rujukan pilihan UBK.</p></div><div className="externalHomeLinks">{(d.links||[]).filter((x:any)=>x.placement==='home' && x.title!=='__SERENE_ZEP_QUIZ__').map((x:any)=><a key={x.id} className="externalHomeCard" href={x.url} target="_blank" rel="noopener noreferrer"><strong>{x.title} ↗</strong>{x.description&&<span>{x.description}</span>}</a>)}</div></div></section>}
 
     <section className="section alumniSection">
       <div className="wrap">
@@ -48,7 +48,7 @@ export default async function Home(){
 
     <section className="section white"><div className="wrap grid2"><div><span className="pill">VIDEO PILIHAN</span><h2 style={{fontSize:38,color:'var(--blue)'}}>Highlight & Informasi UBK</h2></div><div className="videoBox"><HomeVideo url={homeVideo?.url} title={homeVideo?.title || 'Video UBK'}/></div></div></section>
     <SeriLaSereneCarousel items={sereneGallery}/>
-    <section id="temujanji" className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
+    <section className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
     <Footer/>
   </>
 }

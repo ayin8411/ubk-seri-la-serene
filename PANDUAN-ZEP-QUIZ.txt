@@ -1,0 +1,9 @@
+SERENE GAME ZONE - PANDUAN
+
+1. Deploy ZIP ini ke Vercel sebagai PREVIEW dahulu.
+2. Pergi ke /serene-game-zone untuk uji iframe permainan https://quiz.zep.us/en/play/5gnavv.
+3. Dashboard Admin > SERENE GAME ZONE boleh ubah pautan permainan, kemudian Simpan Link Permainan.
+4. Tetapan link disimpan dalam jadual external_links Supabase sedia ada; tidak memerlukan SQL baharu, dengan syarat jadual external_links sudah disediakan.
+5. Jika iframe disekat oleh polisi ZEP QUIZ, klik Buka Game (tab baharu). Sekatan ini tidak boleh dibetulkan melalui portal.
+6. Navigasi SERENE GAME ZONE muncul secara automatik. Jika mahu ubah susunan/tajuk dalam Dashboard > Navigasi, tambahkan baris dengan label SERENE GAME ZONE dan href /serene-game-zone menggunakan dashboard, jika jadual navigasi belum mempunyai baris tersebut. Paparan fallback automatik tidak mempunyai ID untuk diedit sehingga ditambah ke pangkalan data.
+7. Tidak mengubah konfigurasi environment atau kandungan sedia ada.

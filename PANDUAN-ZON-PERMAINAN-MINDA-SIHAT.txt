@@ -1,0 +1,8 @@
+ZEP QUIZ telah diletakkan di bahagian bawah halaman MINDA SIHAT.
+Tajuk: ZON PERMAINAN MINDA SIHAT
+Alamat: /minda-sihat#zon-permainan-minda-sihat
+Dashboard Admin: ZON PERMAINAN MINDA SIHAT - tukar URL permainan.
+Pautan permainan lalai: https://quiz.zep.us/en/play/5gnavv
+Menu SERENE GAME ZONE berasingan dibuang daripada navigasi (termasuk data navigasi lama di Supabase yang ditapis ketika dipaparkan).
+Pautan lama /serene-game-zone diarahkan ke bahagian permainan di halaman Minda Sihat.
+Jika ZEP QUIZ menyekat iframe, gunakan butang Buka Game.

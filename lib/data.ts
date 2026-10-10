@@ -27,8 +27,9 @@ export async function publicData(){
     const baseNav=n?.length?n:defaults.nav
     const navWithTeraju=baseNav.some((item:any)=>item.href==='/serene-teraju')?baseNav:[...baseNav,{label:"SERENE TERAJU",href:"/serene-teraju",order_no:99}]
     const navWithGallery=navWithTeraju.some((item:any)=>item.href==='/galeri-program')?navWithTeraju:[...navWithTeraju,{label:"GALERI PROGRAM",href:"/galeri-program",order_no:100}]
+    const navWithoutOldGame=navWithGallery.filter((item:any)=>item.href!=='/serene-game-zone')
     const sideLinks=links.filter((item:any)=>item.placement==='nav').map((item:any)=>({label:item.title,href:item.url,order_no:item.order_no||100}))
-    return {site:s?.[0]??defaults.site,nav:[...navWithGallery,...sideLinks].sort((a:any,b:any)=>(a.order_no||0)-(b.order_no||0)),links,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
+    return {site:s?.[0]??defaults.site,nav:[...navWithoutOldGame,...sideLinks].sort((a:any,b:any)=>(a.order_no||0)-(b.order_no||0)),links,carousel:c?.length?c:defaults.carousel,org:o?.length?o:defaults.org,tips:t?.length?t:defaults.tips,media:m??[],resources:r??[],announcements:a??[],alumni:al??[]}
   } catch {
     return {site:defaults.site,nav:defaults.nav,links:[],carousel:defaults.carousel,org:defaults.org,tips:defaults.tips,media:[],resources:[],announcements:[],alumni:[]}
   }
