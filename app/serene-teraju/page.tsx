@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
 import CareerSnapCarousel from '@/components/CareerSnapCarousel'
+import ZepGame from '@/components/ZepGame'
 
 export default async function Page(){
  const d=await publicData()
@@ -12,6 +13,7 @@ export default async function Page(){
  return <>
   <Header site={d.site} nav={d.nav}/>
   <div className="pageHero"><div className="wrap"><span className="pill">KEPIMPINAN MURID</span><h1>SERENE TERAJU</h1><p>Memimpin dengan inspirasi, membina legasi. Sorotan pencapaian dan aktiviti PRS serta SLB SMK Seri Lalang.</p></div></div>
+  <section className="section" id="zon-permainan-minda-sihat"><div className="wrap"><div className="sectionTitle"><span className="pill">🎮 ZEP QUIZ</span><h2>ZON PERMAINAN SERENE TERAJU</h2><p>Cabaran interaktif kepimpinan murid.</p></div><ZepGame url="https://quiz.zep.us/en/play/ozGxon" /></div></section>
   <section className="section"><div className="wrap">
    <div className="antiBuliCarouselSection"><div className="mindaPortraitHead"><span className="pill">KEJAYAAN PEMIMPIN MUDA</span><h2>PENCAPAIAN PRS / SLB</h2><p>Pengiktirafan, anugerah dan pencapaian pemimpin murid.</p></div>
     {pencapaian.length ? <MediaImageCarousel items={pencapaian} className="antiBuliCarousel" imageClassName="antiBuliCarouselImage" ariaLabel="Pencapaian PRS SLB"/> : <div className="card" style={{padding:25,textAlign:'center'}}>Galeri pencapaian akan dipaparkan di sini. Admin boleh menambah gambar melalui Dashboard → Pencapaian PRS/SLB.</div>}

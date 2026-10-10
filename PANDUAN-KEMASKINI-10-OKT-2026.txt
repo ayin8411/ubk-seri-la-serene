@@ -1,0 +1,8 @@
+KEMASKINI PORTAL UBK - 10 OKTOBER 2026
+1. Home: Jejak Alumni dibuang; Live Feed Statistik Pelawat dipaparkan tepat sebelum footer JOM FOLLOW KAMI.
+2. SERENE TERAJU: ZEP quiz https://quiz.zep.us/en/play/ozGxon di seksyen pertama selepas header, saiz iframe sama seperti Minda Sihat.
+3. KAMI BENCI BULI: ZEP quiz https://quiz.zep.us/en/play/pdjERA di seksyen pertama selepas header.
+4. Dashboard: menu Jejak Alumni dibuang. Rekod alumni sedia ada di pangkalan data TIDAK dipadam.
+PENTING: Untuk LIVE FEED, selepas deploy ZIP ke Vercel, buka Supabase > SQL Editor > New query, salin kandungan supabase/portal-visitor-stats.sql dan klik RUN. Ini membolehkan jumlah paparan halaman dibaca dengan selamat. Tanpa langkah ini, statistik memaparkan tanda — dan mesej amaran (bukan nombor palsu). Fungsi track page_views asal mesti sudah aktif.
+Paparan dikemas kini setiap 30 saat. Jumlah adalah PAGE VIEWS, bukan individu unik atau bilangan pengguna sedang online.
+Nota: Jika ZEP menghalang embed iframe, butang Buka Game masih disediakan.

@@ -16,7 +16,6 @@ const tabs = [
   'Pengumuman',
   'Jom Hubungi GBK Anda',
   'Seri La Serene Di Hati',
-  'Jejak Alumni',
   'Organisasi',
   'Tips Kesejahteraan',
   'Media',
@@ -58,7 +57,6 @@ const cfg: Record<string, [string, string[]]> = {
   Media: ['media_items', ['section', 'type', 'title', 'url', 'order_no']],
   CareerSnap: ['careersnap_resources', ['title', 'description', 'url', 'resource_type', 'order_no']],
   Pengumuman: ['announcements', ['title', 'body', 'order_no']],
-  'Jejak Alumni': ['alumni', ['name', 'batch', 'course', 'institution', 'photo_url', 'order_no']],
 }
 
 export default function Admin() {
@@ -77,7 +75,6 @@ export default function Admin() {
       'navigation',
       'carousel_items',
       'announcements',
-      'alumni',
       'organization_members',
       'mental_health_tips',
       'media_items',
@@ -90,7 +87,7 @@ export default function Admin() {
     const out: any = {}
     for (const n of names) {
       let q = s.from(n).select('*')
-      if (['navigation','carousel_items','announcements','alumni','organization_members','mental_health_tips','media_items','external_links','careersnap_resources'].includes(n)) {
+      if (['navigation','carousel_items','announcements','organization_members','mental_health_tips','media_items','external_links','careersnap_resources'].includes(n)) {
         q = q.order('order_no', { ascending: true })
       } else {
         q = q.order('id', { ascending: false })

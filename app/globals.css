@@ -752,3 +752,8 @@ body::before{
 #zon-permainan-minda-sihat .wrap{max-width:980px;margin-inline:auto}
 #zon-permainan-minda-sihat .zepCard iframe{height:480px;min-height:0;max-height:none}
 @media(max-width:700px){#zon-permainan-minda-sihat .zepCard iframe{height:440px;min-height:0}}
+
+/* Statistik pelawat di hujung Home, sebelum footer Jom Follow Kami */
+.visitorSection{padding:42px 0;background:linear-gradient(125deg,#eff6ff,#fffdf3)}
+.visitorPanel{border-radius:24px;border:1px solid #cfdef1;background:white;padding:26px;box-shadow:0 14px 34px rgba(2,49,111,.08)}
+.visitorHead{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.visitorHead h2{color:#063d87;font-size:clamp(22px,3vw,31px);margin:12px 0 7px}.visitorHead p{color:#62758c;margin:0}.visitorLive{font-size:12px;font-weight:800;color:#167e60;background:#e5faf0;border-radius:99px;padding:9px 14px}.visitorGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}.visitorGrid>div{padding:22px 14px;border-radius:17px;background:#eef5ff;border:1px solid #d9e7f7;text-align:center}.visitorGrid span{display:block;color:#47617e;font-size:14px;font-weight:700}.visitorGrid strong{display:block;color:#074b9c;font-size:clamp(25px,3.5vw,42px);padding-top:9px;font-variant-numeric:tabular-nums}.visitorNote{color:#697b91;font-size:12px;margin:15px 0 0}.visitorError{font-size:13px;color:#a35416;margin-top:12px}@media(max-width:600px){.visitorPanel{padding:17px}.visitorGrid{gap:7px}.visitorGrid>div{padding:17px 5px}.visitorGrid span{font-size:11px}}

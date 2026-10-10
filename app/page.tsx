@@ -1,4 +1,4 @@
-import Header from '@/components/Header';import Footer from '@/components/Footer';import Carousel from '@/components/Carousel';import SeriLaSereneCarousel from '@/components/SeriLaSereneCarousel';import AlumniCarousel from '@/components/AlumniCarousel';import {AppointmentForm,FeedbackForm} from '@/components/Forms';import {publicData} from '@/lib/data';import HomeVideo from '@/components/HomeVideo';
+import Header from '@/components/Header';import Footer from '@/components/Footer';import Carousel from '@/components/Carousel';import SeriLaSereneCarousel from '@/components/SeriLaSereneCarousel';import VisitorStats from '@/components/VisitorStats';import {AppointmentForm,FeedbackForm} from '@/components/Forms';import {publicData} from '@/lib/data';import HomeVideo from '@/components/HomeVideo';
 
 export default async function Home(){
   const d=await publicData();
@@ -39,16 +39,11 @@ export default async function Home(){
 
     {(d.links||[]).some((x:any)=>x.placement==='home' && x.title!=='__SERENE_ZEP_QUIZ__') && <section className="section alumniSection"><div className="wrap"><div className="sectionTitle"><h2>PAUTAN PILIHAN</h2><p>Terokai laman web dan bahan rujukan pilihan UBK.</p></div><div className="externalHomeLinks">{(d.links||[]).filter((x:any)=>x.placement==='home' && x.title!=='__SERENE_ZEP_QUIZ__').map((x:any)=><a key={x.id} className="externalHomeCard" href={x.url} target="_blank" rel="noopener noreferrer"><strong>{x.title} ↗</strong>{x.description&&<span>{x.description}</span>}</a>)}</div></div></section>}
 
-    <section className="section alumniSection">
-      <div className="wrap">
-        <div className="sectionTitle"><span className="pill">INSPIRASI LEPASAN SPM</span><h2>JEJAK ALUMNI</h2><p>Dari SERI LA ke dunia — lihat perjalanan bekas murid meneruskan pengajian mereka.</p></div>
-        <AlumniCarousel items={d.alumni}/>
-      </div>
-    </section>
 
     <section className="section white"><div className="wrap grid2"><div><span className="pill">VIDEO PILIHAN</span><h2 style={{fontSize:38,color:'var(--blue)'}}>Highlight & Informasi UBK</h2></div><div className="videoBox"><HomeVideo url={homeVideo?.url} title={homeVideo?.title || 'Video UBK'}/></div></div></section>
     <SeriLaSereneCarousel items={sereneGallery}/>
     <section className="section"><div className="wrap"><div className="sectionTitle"><h2>Temujanji & Maklum Balas</h2><p>{d.site.appointment_intro}</p></div><div className="formsGrid"><AppointmentForm/><FeedbackForm/></div></div></section>
+    <VisitorStats/>
     <Footer/>
   </>
 }

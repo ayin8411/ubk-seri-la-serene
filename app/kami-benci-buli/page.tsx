@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
+import ZepGame from '@/components/ZepGame'
 
 export default async function Page() {
   const d = await publicData()
@@ -39,6 +40,7 @@ export default async function Page() {
         </div>
       </div>
 
+      <section className="section" id="zon-permainan-minda-sihat"><div className="wrap"><div className="sectionTitle"><span className="pill">🎮 ZEP QUIZ</span><h2>ZON PERMAINAN KAMI BENCI BULI</h2><p>Kenali pencegahan buli melalui permainan interaktif.</p></div><ZepGame url="https://quiz.zep.us/en/play/pdjERA" /></div></section>
       <section className="section">
         <div className="wrap">
           {media.length > 0 ? (
