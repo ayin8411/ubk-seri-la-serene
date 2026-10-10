@@ -53,6 +53,18 @@ export default async function Page() {
         </div>
       </div>
 
+      <section className="section" id="zon-permainan-minda-sihat">
+        <div className="wrap">
+          <div className="sectionTitle">
+            <span className="pill">🎮 ZEP QUIZ</span>
+            <h2>ZON PERMAINAN MINDA SIHAT</h2>
+            <p>Jom teroka ilmu kesejahteraan emosi melalui permainan interaktif!</p>
+          </div>
+          <ZepGame url={gameUrl} />
+        </div>
+      </section>
+
+
       <section className="section">
         <div className="wrap">
           <div className="sectionTitle">
@@ -200,17 +212,6 @@ export default async function Page() {
               })}
             </div>
           )}
-        </div>
-      </section>
-
-      <section className="section" id="zon-permainan-minda-sihat">
-        <div className="wrap">
-          <div className="sectionTitle">
-            <span className="pill">🎮 ZEP QUIZ</span>
-            <h2>ZON PERMAINAN MINDA SIHAT</h2>
-            <p>Jom teroka ilmu kesejahteraan emosi melalui permainan interaktif!</p>
-          </div>
-          <ZepGame url={gameUrl} />
         </div>
       </section>
 

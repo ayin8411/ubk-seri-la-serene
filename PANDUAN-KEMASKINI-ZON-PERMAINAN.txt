@@ -1,0 +1,5 @@
+KEMASKINI 10 OKTOBER 2026
+1. ZON PERMAINAN MINDA SIHAT kini berada paling atas selepas tajuk utama pada halaman Minda Sihat.
+2. Lebar maksimum permainan 980px, tinggi iframe 480px di desktop / 440px di telefon.
+3. Semua bahan dan fungsi dashboard sedia ada dikekalkan.
+4. Deploy sebagai Preview di Vercel terlebih dahulu dan uji iframe. ZEP QUIZ mungkin menyekat embedding mengikut polisinya.
