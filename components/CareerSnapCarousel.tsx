@@ -1,15 +1,25 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function CareerSnapCarousel({ items, heading = "Sorotan CareerSnap", description = "Sekilas aktiviti dan momen CareerSnap." }: { items: any[], heading?: string, description?: string }) {
   const trackRef = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const track = trackRef.current
-    if (!track || items.length < 2) return
+    if (!track) return
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {threshold: 0.05})
+    observer.observe(track)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track || items.length < 2 || !visible) return
 
     const timer = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return
       const firstCard = track.querySelector<HTMLElement>('[data-carousel-card]')
       const step = (firstCard?.offsetWidth ?? 240) + 14
       const maxScroll = track.scrollWidth - track.clientWidth
@@ -22,7 +32,7 @@ export default function CareerSnapCarousel({ items, heading = "Sorotan CareerSna
     }, 3500)
 
     return () => window.clearInterval(timer)
-  }, [items.length])
+  }, [items.length, visible])
 
   if (!items.length) return null
 
@@ -95,7 +105,7 @@ export default function CareerSnapCarousel({ items, heading = "Sorotan CareerSna
             <img
               src={item.url}
               alt={item.title || `Sorotan CareerSnap ${i + 1}`}
-              loading="lazy"
+              loading="lazy" decoding="async"
               style={{
                 width: '100%',
                 height: 170,

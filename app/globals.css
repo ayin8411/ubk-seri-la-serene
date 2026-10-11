@@ -800,3 +800,20 @@ body::before{
 .sereneAdminNote{min-width:220px;max-width:520px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
 @media(max-width:850px){.sereneAdminCharts{grid-template-columns:1fr}}
 @media(max-width:620px){.sereneAdminStats{grid-template-columns:1fr}.sereneAdminBar{grid-template-columns:98px minmax(0,1fr) 25px}.sereneAdminHero h2{font-size:23px}}
+
+
+/* Supabase bandwidth protection: video only loads after user presses play. */
+.ubkVideoStart {
+  width:100%; min-height:225px; padding:24px 18px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:10px; background:linear-gradient(145deg,#072653,#0e5395);
+  color:white; border:0; border-radius:16px; text-align:center;
+  cursor:pointer; font:inherit; box-sizing:border-box;
+}
+.ubkVideoStart:hover, .ubkVideoStart:focus-visible {background:linear-gradient(145deg,#0b3769,#145fa4)}
+.ubkVideoStart:focus-visible {outline:3px solid #f7c948; outline-offset:2px}
+.ubkVideoStartIcon {display:grid;place-items:center;width:68px;height:68px;border-radius:50%;background:#f7c948;color:#073b78;font-size:29px;padding-left:4px;box-shadow:0 9px 25px #00172e7a}
+.ubkVideoStart strong {font-size:clamp(19px,2.4vw,25px);line-height:1.2}
+.ubkVideoStart small {font-size:14px;font-weight:600;max-width:90%;overflow-wrap:anywhere;opacity:.9}
+.ubkVideoStartNote {font-size:12px;font-weight:500;color:#d7ecff}
+@media(max-width:600px){.ubkVideoStart{min-height:190px;padding:18px 12px}.ubkVideoStartIcon{width:56px;height:56px;font-size:24px}}

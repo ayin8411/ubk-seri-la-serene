@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type CarouselItem = {
   id?: string | number | null
@@ -22,14 +22,34 @@ export default function MediaImageCarousel({
   ariaLabel = 'Galeri gambar',
 }: Props) {
   const [active, setActive] = useState(0)
+  // Keep previously-viewed images mounted so returning to a slide can reuse
+  // the browser cache rather than repeatedly reattaching the same URL.
+  const [visited, setVisited] = useState<number[]>([0])
+  const [visible, setVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (items.length <= 1) return
+    setVisited((previous) => previous.includes(active) ? previous : [...previous, active])
+  }, [active])
+
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting)
+    }, { threshold: 0.05 })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (items.length <= 1 || !visible) return
     const timer = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return
       setActive((current) => (current + 1) % items.length)
     }, 5500)
     return () => window.clearInterval(timer)
-  }, [items.length])
+  }, [items.length, visible])
 
   if (!items.length) return null
 
@@ -39,7 +59,7 @@ export default function MediaImageCarousel({
   }
 
   return (
-    <div className={`mediaCarousel ${className}`.trim()} aria-label={ariaLabel}>
+    <div ref={ref} className={`mediaCarousel ${className}`.trim()} aria-label={ariaLabel}>
       <div className="mediaCarouselViewport">
         {items.map((item, index) => (
           <figure
@@ -48,9 +68,10 @@ export default function MediaImageCarousel({
             aria-hidden={index !== active}
           >
             <img
-              src={item.url}
+              src={visited.includes(index) ? item.url : undefined}
               alt={item.title || `${ariaLabel} ${index + 1}`}
-              loading={index === 0 ? 'eager' : 'lazy'}
+              loading="lazy"
+              decoding="async"
               className={imageClassName}
             />
             {item.title && <figcaption>{item.title}</figcaption>}

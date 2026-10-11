@@ -1,15 +1,25 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function SeriLaSereneCarousel({ items }: { items: any[] }) {
   const trackRef = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const track = trackRef.current
-    if (!track || items.length < 2) return
+    if (!track) return
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), {threshold: 0.05})
+    observer.observe(track)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track || items.length < 2 || !visible) return
 
     const timer = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return
       const firstCard = track.querySelector<HTMLElement>('[data-serene-card]')
       const step = (firstCard?.offsetWidth ?? 250) + 14
       const maxScroll = track.scrollWidth - track.clientWidth
@@ -22,7 +32,7 @@ export default function SeriLaSereneCarousel({ items }: { items: any[] }) {
     }, 3800)
 
     return () => window.clearInterval(timer)
-  }, [items.length])
+  }, [items.length, visible])
 
   const scroll = (direction: number) => {
     const track = trackRef.current
@@ -53,7 +63,7 @@ export default function SeriLaSereneCarousel({ items }: { items: any[] }) {
           <div className="sereneGalleryTrack" ref={trackRef}>
             {items.map((item: any, i: number) => (
               <figure className="sereneGalleryCard" data-serene-card key={item.id ?? `${item.url}-${i}`}>
-                <img src={item.url} alt={item.title || `Bilik SERI LA SERENE ${i + 1}`} loading="lazy" />
+                <img src={item.url} alt={item.title || `Bilik SERI LA SERENE ${i + 1}`} loading="lazy" decoding="async" />
                 {item.title && <figcaption>{item.title}</figcaption>}
               </figure>
             ))}

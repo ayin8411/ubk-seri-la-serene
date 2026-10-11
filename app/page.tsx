@@ -27,13 +27,13 @@ export default async function Home(){
     <section className="section white homePosterSection">
       <div className="wrap">
         <div className="sectionTitle"><h2>JOM HUBUNGI GBK ANDA</h2></div>
-        <div className="homePosterBox"><img src={d.site.contact_image_url || '/jom-hubungi-gbk-anda.png'} alt="Talian sokongan psikososial — Jom Hubungi GBK Anda" /></div>
+        <div className="homePosterBox"><img src={d.site.contact_image_url || '/jom-hubungi-gbk-anda.png'} alt="Talian sokongan psikososial — Jom Hubungi GBK Anda" loading="lazy" decoding="async" /></div>
       </div>
     </section>
     <section className="section homePosterSection serenePosterSection">
       <div className="wrap">
         <div className="sectionTitle"><h2>SERI LA SERENE DI HATI</h2></div>
-        <div className="homePosterBox"><img src={(d.site as any).serene_image_url || '/seri-la-serene-di-hati.png'} alt="Rasional penamaan UBK Seri La Serene" /></div>
+        <div className="homePosterBox"><img src={(d.site as any).serene_image_url || '/seri-la-serene-di-hati.png'} alt="Rasional penamaan UBK Seri La Serene" loading="lazy" decoding="async" /></div>
       </div>
     </section>
 

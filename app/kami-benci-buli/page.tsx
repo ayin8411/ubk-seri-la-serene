@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
+import ClickToPlayVideo from '@/components/ClickToPlayVideo'
 import ZepGame from '@/components/ZepGame'
 
 export default async function Page() {
@@ -70,20 +71,16 @@ export default async function Page() {
                         {item.title && <h3>{item.title}</h3>}
 
                         {isVideo(type) && (
-                          <video
-                            src={item.url}
-                            controls
-                            playsInline
-                            preload="metadata"
+                          <ClickToPlayVideo
+                            url={item.url}
+                            title={title}
                             className="antiBuliVideo"
-                          >
-                            Pelayar anda tidak menyokong paparan video.
-                          </video>
+                          />
                         )}
 
                         {isPdf(type) && (
                           <>
-                            <iframe src={item.url} title={title} className="antiBuliPdf" />
+                            <iframe loading="lazy" src={item.url} title={title} className="antiBuliPdf" />
                             <div className="antiBuliAction">
                               <a className="button yellow" href={item.url} target="_blank" rel="noreferrer">
                                 Buka PDF Penuh

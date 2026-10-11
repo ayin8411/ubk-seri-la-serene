@@ -4,6 +4,7 @@ import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
 import ZepGame from '@/components/ZepGame'
 import SereneMoodScan from '@/components/SereneMoodScan'
+import ClickToPlayVideo from '@/components/ClickToPlayVideo'
 
 export default async function Page() {
   const d = await publicData()
@@ -150,11 +151,9 @@ export default async function Page() {
                     )}
 
                     {isVideo(type) && (
-                      <video
-                        src={item.url}
-                        controls
-                        playsInline
-                        preload="metadata"
+                      <ClickToPlayVideo
+                        url={item.url}
+                        title={title}
                         style={{
                           width: '100%',
                           height: 'auto',
@@ -162,9 +161,7 @@ export default async function Page() {
                           borderRadius: 16,
                           background: '#000',
                         }}
-                      >
-                        Pelayar anda tidak menyokong paparan video.
-                      </video>
+                      />
                     )}
 
                     {isImage(type) && (
@@ -180,6 +177,7 @@ export default async function Page() {
                     {isPdf(type) && (
                       <>
                         <iframe
+                          loading="lazy"
                           src={item.url}
                           title={title}
                           style={{
