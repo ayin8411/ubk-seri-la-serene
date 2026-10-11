@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { createClient, hasSupabaseEnv } from '@/lib/supabase/client'
+import SereneMoodAdminPanel from '@/components/SereneMoodAdminPanel'
 
 const tabs = [
   'Ringkasan',
+  'SERENE MOOD SCAN',
   'Identiti & Pautan',
   'Favicon Portal',
   'Halaman Pengurusan',
@@ -61,7 +63,12 @@ const cfg: Record<string, [string, string[]]> = {
 
 export default function Admin() {
   const [tab, setTab] = useState(tabs[0])
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('tab') === 'serene-mood') setTab('SERENE MOOD SCAN')
+  }, [])
   const [user, setUser] = useState<any>(null)
+  const [checkingAccess, setCheckingAccess] = useState(true)
+  const [mode, setMode] = useState<'login'|'register'|'email'>('login')
   const [login, setLogin] = useState({ email: '', password: '' })
   const [msg, setMsg] = useState('')
   const [data, setData] = useState<any>({})
@@ -98,36 +105,66 @@ export default function Admin() {
     setData(out)
   }
 
+  const allowedNewAdmins = ['areyinrahman@gmail.com', 'amalinajumiran@gmail.com']
+
+  async function checkAdminAccess(authUser: any) {
+    if (!s || !authUser) { setUser(null); setCheckingAccess(false); return }
+    const { data, error } = await s.from('admins').select('user_id').eq('user_id', authUser.id).maybeSingle()
+    if (error || !data) {
+      setUser(null)
+      setMsg('Akaun ini belum mempunyai kebenaran admin. Sahkan e-mel dahulu dan cuba log masuk semula.')
+      await s.auth.signOut()
+    } else {
+      setUser(authUser)
+      await load()
+    }
+    setCheckingAccess(false)
+  }
+
   useEffect(() => {
-    if (!s) return
-    s.auth.getUser().then(({ data }) => {
-      setUser(data.user)
-      if (data.user) load()
+    if (!s) { setCheckingAccess(false); return }
+    let active = true
+    s.auth.getUser().then(async ({ data }) => {
+      if (active) await checkAdminAccess(data.user)
     })
+    const { data: listener } = s.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT' && active) { setUser(null); setCheckingAccess(false) }
+    })
+    return () => { active = false; listener.subscription.unsubscribe() }
   }, [s])
 
   async function signIn(e: any) {
     e.preventDefault()
     if (!s) return
-    const { data, error } = await s.auth.signInWithPassword(login)
-    setMsg(error?.message || 'Log masuk berjaya')
-    setUser(data.user)
-    if (data.user) load()
+    setMsg('Memeriksa akses admin...')
+    setCheckingAccess(true)
+    const { data, error } = await s.auth.signInWithPassword({email: login.email.trim().toLowerCase(),password:login.password})
+    if (error) { setMsg('Log masuk gagal: ' + error.message); setCheckingAccess(false); return }
+    await checkAdminAccess(data.user)
+  }
+
+  async function registerAdmin(e: any) {
+    e.preventDefault()
+    if (!s) return
+    const email = login.email.trim().toLowerCase()
+    if (!allowedNewAdmins.includes(email)) { setMsg('Pendaftaran admin hanya dibenarkan untuk dua e-mel yang diluluskan.'); return }
+    if (login.password.length < 12) {setMsg('Gunakan kata laluan sekurang-kurangnya 12 aksara.');return}
+    const { data, error } = await s.auth.signUp({email, password:login.password, options:{emailRedirectTo:'https://ubksmkserilalang.com/admin'}})
+    if (error) { setMsg('Pendaftaran gagal: ' + error.message);return }
+    if (data.session && data.user) { await checkAdminAccess(data.user) }
+    else setMsg('Semak e-mel untuk mengesahkan akaun. Jika pautan menuju localhost, betulkan Site URL di Supabase Authentication > URL Configuration.')
   }
 
   async function sendEmailLogin(e: any) {
     e.preventDefault()
     if (!s) return
     const email = login.email.trim().toLowerCase()
-    if (!['areyinrahman@gmail.com', 'amalinajumiran@gmail.com'].includes(email)) {
-      setMsg('Pautan e-mel ini disediakan untuk dua admin baharu sahaja. Admin asal sila log masuk dengan kata laluan.')
-      return
-    }
+    if (!allowedNewAdmins.includes(email)) {setMsg('Kaedah ini hanya untuk dua e-mel admin baharu.');return}
     const { error } = await s.auth.signInWithOtp({ email, options: {
       emailRedirectTo: 'https://ubksmkserilalang.com/admin',
       shouldCreateUser: true,
     } })
-    setMsg(error ? `Gagal menghantar pautan: ${error.message}` : 'Jika alamat e-mel sah, pautan log masuk telah diminta. Semak Inbox atau Spam. Klik pautan itu pada peranti yang sama.')
+    setMsg(error ? `Gagal menghantar pautan: ${error.message}` : 'Sila semak e-mel. Gunakan pautan paling baharu sahaja. Pautan lama yang telah digunakan atau tamat tempoh tidak boleh diguna semula.')
   }
 
   async function saveSite(e: any) {
@@ -324,22 +361,26 @@ export default function Admin() {
     return <div className="adminMain"><div className="panel"><h1>Dashboard Admin — Demo</h1><p>Masukkan Supabase URL + Publishable Key untuk mengaktifkan dashboard.</p><a className="button" href="/">Lihat Landing Page</a></div></div>
   }
 
+  if (checkingAccess) return <div className="adminMain" style={{maxWidth:480,margin:'70px auto'}}><div className="panel"><h2>Memeriksa akses admin...</h2></div></div>
   if (!user) {
     return <div className="adminMain" style={{ maxWidth: 480, margin: '70px auto' }}>
-      <form className="panel" onSubmit={signIn}>
-        <h1>Log Masuk Admin</h1>
-        <input type="email" placeholder="Email admin" value={login.email} onChange={e => setLogin({ ...login, email: e.target.value })} required />
-        <input type="password" placeholder="Kata laluan" value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} required />
-        <button>Log Masuk</button>
-        {msg && <p>{msg}</p>}
-      </form>
-      <form className="panel" style={{ marginTop: 16 }} onSubmit={sendEmailLogin}>
-        <h2>Admin baharu — Log Masuk Melalui E-mel</h2>
-        <p>Untuk areyinrahman@gmail.com dan amalinajumiran@gmail.com. Tidak memerlukan kata laluan sementara.</p>
-        <input type="email" placeholder="E-mel admin baharu" value={login.email} onChange={e => setLogin({ ...login, email: e.target.value })} required />
-        <button type="submit">Hantar Pautan Log Masuk ke E-mel</button>
-        {msg && <p role="status">{msg}</p>}
-      </form>
+      <div className="panel">
+        <h1>Log Masuk Admin UBK</h1>
+        <p>Gunakan e-mel admin yang telah dibenarkan sahaja.</p>
+        <div style={{display:'flex',flexWrap:'wrap',gap:8,marginBottom:18}}>
+          <button type="button" onClick={()=>{setMode('login');setMsg('')}}>Log Masuk</button>
+          <button type="button" onClick={()=>{setMode('register');setMsg('')}}>Daftar Admin Baharu</button>
+          <button type="button" onClick={()=>{setMode('email');setMsg('')}}>Pautan E-mel</button>
+        </div>
+        <form onSubmit={mode==='login'?signIn:mode==='register'?registerAdmin:sendEmailLogin}>
+          <label>E-mel</label>
+          <input type="email" placeholder="E-mel admin" value={login.email} onChange={e=>setLogin({...login,email:e.target.value})} required />
+          {mode !== 'email' && <><label>Kata laluan</label><input type="password" placeholder={mode==='register'?'Minimum 12 aksara':'Kata laluan anda'} minLength={mode==='register'?12:undefined} value={login.password} onChange={e=>setLogin({...login,password:e.target.value})} required /></>}
+          {mode==='register' && <p>Akaun baharu hanya untuk areyinrahman@gmail.com dan amalinajumiran@gmail.com. E-mel mesti disahkan sebelum mendapat akses dashboard.</p>}
+          <button type="submit">{mode==='login'?'Log Masuk':mode==='register'?'Daftar dan Sahkan E-mel':'Hantar Pautan E-mel'}</button>
+        </form>
+        {msg && <p role="status" style={{marginTop:12}}>{msg}</p>}
+      </div>
     </div>
   }
 
@@ -361,6 +402,8 @@ export default function Admin() {
 
       {msg && <div className="panel adminMessage">{msg}</div>}
 
+      {tab === 'SERENE MOOD SCAN' && s && <SereneMoodAdminPanel client={s} userId={user.id} />}
+
       {tab === 'Ringkasan' && <>
         <div className="stats">
           <div className="stat"><span>Temujanji</span><strong>{data.appointments?.length || 0}</strong></div>
@@ -369,6 +412,7 @@ export default function Admin() {
         </div>
         <div className="panel adminGuide">
           <h3>Cara cepat mengedit portal</h3>
+          <p><b>💙 SERENE MOOD SCAN:</b> buka menu <b>SERENE MOOD SCAN</b> untuk melihat statistik emosi dan permintaan sokongan murid terus di dashboard ini.</p>
           <p><b>Favicon:</b> buka tab <b>Favicon Portal</b> untuk muat naik logo pada tab browser.</p>
           <p><b>Visi & Misi:</b> buka tab <b>Identiti & Pautan</b>.</p>
           <p><b>Nama, jawatan & foto carta organisasi:</b> buka tab <b>Organisasi</b> dan tekan <b>Edit</b>.</p>

@@ -772,3 +772,31 @@ body::before{
 .sereneMoodWidgetFooter{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 8px 2px;color:#61748f;font-size:12px;line-height:1.65}
 .sereneMoodWidgetFooter a{color:#21549c;font-weight:800;text-decoration:underline}
 @media(max-width:700px){.sereneMoodWidget{padding:9px;border-radius:16px}.sereneMoodWidgetTop{padding:8px 7px 12px}.sereneMoodWidgetActions{width:100%}.sereneMoodWidgetActions a,.sereneMoodWidgetActions button{flex:1;min-width:130px;text-align:center}.sereneMoodWidgetFooter{padding:11px 8px}}
+
+
+/* Teacher-only SERENE MOOD SCAN is rendered inside /admin after portal authentication. */
+.sereneAdminBoard{width:100%;min-width:0}
+.sereneAdminHero{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;background:linear-gradient(125deg,#e5f0ff,#f4fff7)}
+.sereneAdminHero h2{color:#073b78;margin:10px 0;font-size:26px}
+.sereneAdminHero p{color:#4c6682;max-width:640px;line-height:1.6}
+.sereneAdminPill{color:#134882;background:#d8e9ff;border-radius:22px;padding:7px 12px;font-size:12px;font-weight:800}
+.sereneAdminButtons{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sereneAdminLink{border-radius:10px;background:#edf3fa;color:#124c89;padding:11px 15px;font-size:13px;font-weight:800;text-decoration:none}
+.sereneAdminStats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-bottom:20px}
+.sereneAdminStats>div{background:linear-gradient(130deg,#0d4b93,#2077c3);color:#fff;padding:22px;border-radius:16px}
+.sereneAdminStats span{font-size:13px;display:block;opacity:.95}
+.sereneAdminStats strong{font-size:34px;display:block;margin-top:9px}
+.sereneAdminCharts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.sereneAdminCharts .panel{min-width:0}
+.sereneAdminCharts h3{margin-top:0;color:#124a88}
+.sereneAdminMuted{color:#56708b;font-size:13px;line-height:1.65}
+.sereneAdminBar{display:grid;grid-template-columns:115px minmax(0,1fr) 34px;align-items:center;gap:10px;margin:13px 0;font-size:13px}
+.sereneAdminBar .sereneAdminTrack{height:13px;border-radius:10px;background:#e0ebf7;overflow:hidden}
+.sereneAdminTrack>div{height:100%;border-radius:10px;background:#397ed0;transition:width .2s ease}
+.sereneAdminBar>b{text-align:right;color:#174a80}
+.sereneAdminHead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:15px}
+.sereneAdminHead h3{color:#124a88;margin:0}
+.sereneAdminHead button{width:auto;white-space:nowrap}
+.sereneAdminNote{min-width:220px;max-width:520px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.6}
+@media(max-width:850px){.sereneAdminCharts{grid-template-columns:1fr}}
+@media(max-width:620px){.sereneAdminStats{grid-template-columns:1fr}.sereneAdminBar{grid-template-columns:98px minmax(0,1fr) 25px}.sereneAdminHero h2{font-size:23px}}
