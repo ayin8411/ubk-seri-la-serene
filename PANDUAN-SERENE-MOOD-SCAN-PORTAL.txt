@@ -1,0 +1,15 @@
+SERENE MOOD SCAN — KEMASKINI PORTAL UBK (11 OKTOBER 2026)
+=========================================================
+
+1. ZIP ini ialah projek portal UBK SERI LA SERENE yang lengkap, bukan ZIP permainan sahaja.
+2. Halaman SERENE MINDA SIHAT kini memaparkan SERENE MOOD SCAN di bahagian paling atas sebelum ZON PERMAINAN MINDA SIHAT (ZEP Quiz).
+3. Permainan boleh dimainkan terus dalam halaman SERENE MINDA SIHAT. Tinggi paparan akan berubah secara automatik.
+4. Butang Buka Paparan Penuh: /serene-mood-scan/index.html
+5. Papan Pemuka Guru: /serene-mood-scan/index.html#guru
+6. Dashboard menggunakan log masuk Supabase Auth guru yang telah diberikan akses.
+7. Statistik emosi direkod secara anonim. Nama dan kelas hanya disimpan apabila murid sendiri menghantar permintaan untuk GBK.
+8. Pangkalan data Mood Scan telah ditambah dalam projek Supabase UBK sedia ada; tidak perlu tambah SQL lain jika menggunakan projek asal.
+9. Deploy ZIP baharu ini ke projek Vercel PORTAL UBK yang sedia ada. Pastikan environment variables NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY dikekalkan.
+10. Projek lain dan bahan lama (ZEP Quiz, tips, infografik, video dan navigasi) kekal dalam ZIP ini.
+
+NOTA: Portal aktif hanya berubah selepas ZIP ini berjaya dideploy ke projek Vercel portal UBK.

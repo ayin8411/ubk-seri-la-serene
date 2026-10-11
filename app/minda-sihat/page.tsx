@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import { publicData } from '@/lib/data'
 import MediaImageCarousel from '@/components/MediaImageCarousel'
 import ZepGame from '@/components/ZepGame'
+import SereneMoodScan from '@/components/SereneMoodScan'
 
 export default async function Page() {
   const d = await publicData()
@@ -52,6 +53,17 @@ export default async function Page() {
           <p>Informasi ringkas untuk menyokong kesejahteraan murid.</p>
         </div>
       </div>
+
+      <section className="section" id="serene-mood-scan">
+        <div className="wrap">
+          <div className="sectionTitle">
+            <span className="pill">💙 SEMAK EMOSI @ PdPR</span>
+            <h2>SERENE MOOD SCAN</h2>
+            <p>Jom kenali emosi hari ini! Klik emoji, pilih keperluan dan buka kad motivasi khas untuk kamu.</p>
+          </div>
+          <SereneMoodScan />
+        </div>
+      </section>
 
       <section className="section" id="zon-permainan-minda-sihat">
         <div className="wrap">
