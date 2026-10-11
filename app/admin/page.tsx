@@ -115,6 +115,21 @@ export default function Admin() {
     if (data.user) load()
   }
 
+  async function sendEmailLogin(e: any) {
+    e.preventDefault()
+    if (!s) return
+    const email = login.email.trim().toLowerCase()
+    if (!['areyinrahman@gmail.com', 'amalinajumiran@gmail.com'].includes(email)) {
+      setMsg('Pautan e-mel ini disediakan untuk dua admin baharu sahaja. Admin asal sila log masuk dengan kata laluan.')
+      return
+    }
+    const { error } = await s.auth.signInWithOtp({ email, options: {
+      emailRedirectTo: 'https://ubksmkserilalang.com/admin',
+      shouldCreateUser: true,
+    } })
+    setMsg(error ? `Gagal menghantar pautan: ${error.message}` : 'Jika alamat e-mel sah, pautan log masuk telah diminta. Semak Inbox atau Spam. Klik pautan itu pada peranti yang sama.')
+  }
+
   async function saveSite(e: any) {
     e.preventDefault()
     if (!s) return
@@ -317,6 +332,13 @@ export default function Admin() {
         <input type="password" placeholder="Kata laluan" value={login.password} onChange={e => setLogin({ ...login, password: e.target.value })} required />
         <button>Log Masuk</button>
         {msg && <p>{msg}</p>}
+      </form>
+      <form className="panel" style={{ marginTop: 16 }} onSubmit={sendEmailLogin}>
+        <h2>Admin baharu — Log Masuk Melalui E-mel</h2>
+        <p>Untuk areyinrahman@gmail.com dan amalinajumiran@gmail.com. Tidak memerlukan kata laluan sementara.</p>
+        <input type="email" placeholder="E-mel admin baharu" value={login.email} onChange={e => setLogin({ ...login, email: e.target.value })} required />
+        <button type="submit">Hantar Pautan Log Masuk ke E-mel</button>
+        {msg && <p role="status">{msg}</p>}
       </form>
     </div>
   }
